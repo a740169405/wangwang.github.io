@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -53,16 +53,16 @@
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/avatar.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/avatar.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/avatar.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/uploads/avatar.png?v=5.1.4" color="#222">
 
 
 
@@ -95,7 +95,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -185,6 +185,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -335,57 +345,15 @@
       
         
           
-            <h2 id="过度绘制："><a href="#过度绘制：" class="headerlink" title="过度绘制："></a>过度绘制：</h2><p><strong>屏幕上某一像素点在一帧中被重复绘制多次，就是过度绘制。</strong><br>        下图中多个卡片跌在一起，但是只有第一个卡片是完全可见的。背后的卡片只有部分可见。但是android系统在绘制时会将下层的卡片进行绘制，接着再将上层的卡片进行绘制。但其实，下层卡片不可见的部分是不需要进行绘制的，只有可见部分才需要进行绘制。<br><img src="http://img.blog.csdn.net/20170108141129507?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="过度绘制demo"></p>
-<p><strong>依据过度绘制的层度可以分成：</strong></p>
-<ul>
-<li>无过度绘制（一个像素只被绘制了一次） </li>
-<li>过度绘制x1（一个像素被绘制了两次） </li>
-<li>过度绘制x2（一个像素被绘制了三次）</li>
-<li>过度绘制x3（一个像素被绘制了四次） </li>
-<li>过度绘制x4+（一个像素被绘制了五次以上）</li>
-</ul>
-<h2 id="查看自己应用的过度绘制情况："><a href="#查看自己应用的过度绘制情况：" class="headerlink" title="查看自己应用的过度绘制情况："></a>查看自己应用的过度绘制情况：</h2><p><strong>方法一：通过开发者选项开启GPU过度绘制调试</strong><br>Android手机的开发者选项中有『调试 GPU 过度绘制』的选项：<br><img src="http://img.blog.csdn.net/20170108141302608?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="开发人员选项"></p>
-<p>点开后后选择『显示过度绘制区域』：<br><img src="http://img.blog.csdn.net/20170108141359140?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="过度绘制"></p>
-<p><strong>方法二：通过adb命令开启GPU过度绘制调试</strong><br>当然，如果每次都进入系统设置嫌麻烦，可以使用adb命令进行开启和关闭：<br>开启『调试 GPU 过度绘制』：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell setprop debug.hwui.overdraw show</div></pre></td></tr></table></figure></p>
-<p>关闭『调试 GPU 过度绘制』：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell setprop debug.hwui.overdraw false</div></pre></td></tr></table></figure></p>
-<p>执行命令之后可能需要重新启动你当前开发的应用。</p>
-<h2 id="颜色与过度绘制："><a href="#颜色与过度绘制：" class="headerlink" title="颜色与过度绘制："></a>颜色与过度绘制：</h2><ul>
-<li>原色：没有过度绘制 </li>
-<li>蓝色：1 次过度绘制 </li>
-<li>绿色：2 次过度绘制 </li>
-<li>粉色：3 次过度绘制 </li>
-<li>红色：4 次及以上过度绘制</li>
-</ul>
-<p>在平时的开发中，如果出现粉色及以上的过度绘制情况。说明过度绘制以及很严重了。需要进行优化。</p>
-<h2 id="优化过度绘制："><a href="#优化过度绘制：" class="headerlink" title="优化过度绘制："></a>优化过度绘制：</h2><p><strong>1. 去除Activity自带的默认背景颜色:</strong><br>查看Android源码里的Theme主题，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;style name=&quot;Theme&quot;&gt;</div><div class="line">	...</div><div class="line">	&lt;!-- Window attributes --&gt;</div><div class="line">    &lt;item name=&quot;windowBackground&quot;&gt;@drawable/screen_background_selector_dark&lt;/item&gt;</div><div class="line">	...</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>也就是说继承Theme这个style的风格，默认情况下，新建一个Activity都是有背景的。正常情况下，很多界面其实是不需要背景的。</p>
-<p>下面是华为自带天气APP的首页，我们可以看到文字部分以及图标部分都是绿色，说面已经是第三层过度绘制了，其中背后天气图是一层，文字又是一层，正常来说应该只有两层，也就是文字和图标应该是蓝色。那么这多出来的一层应该就是Activity自带的背景色了。也就是theme里面设置的。<br><img src="http://img.blog.csdn.net/20170108141458059?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Activity默认背景"></p>
-<p>我们只要在自己的AppTheme里面去除该背景色即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;style name=&quot;AppTheme&quot; parent=&quot;android:Theme.Light.NoTitleBar&quot;&gt;</div><div class="line">    &lt;item name=&quot;android:windowBackground&quot;&gt;@null&lt;/item&gt;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>或者在Activity的onCreate方法中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">getWindow().setBackgroundDrawable(null);</div></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>2.使用Canvas的clipRect和clipPath方法限制View的绘制区域</strong><br>一个Activity对应有一个Canvas，也就是画布，画布的概念就是一个画板，这个画布提供了很多的API，我们可以通过调用画布的API来绘图以及对画布做一些操作，clipRect方法用来裁切画布上的一个矩形区域，该矩形区域用Rect对象来描述。调用了clipRect之后，画布的可绘制区域减小到和Rect指定的矩形区域一样大小。所有的绘制将限制在该矩形范围之内。这里的裁切概念和PS里的裁切类似。</p>
-<p>典型的例子，抽屉布局，找了网易云音乐开刀：<br><img src="http://img.blog.csdn.net/20170107224607701?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="网易云"><br>注意观察左侧抽屉打开的时候，抽屉布局和背后布局重叠在一起了，此时整个屏幕一多半都变成了红色，过度绘制严重。</p>
-<p>在抽屉布局弹出时，抽屉布局是不透明的，也就是说抽屉布局背后挡住的内容布局是不需要绘制的，而网易云进行了绘制，导致抽屉布局所在区域的像素点绘制了多次。</p>
-<p>google官方在android.support.v4.widget包下有DrawerLayout.java类。使用来实现抽屉布局的。该类在重写了drawChild方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected boolean drawChild(Canvas canvas, View child, long drawingTime) &#123;</div><div class="line">    final int height = getHeight();</div><div class="line">    // 判断是否是内容视图</div><div class="line">    final boolean drawingContent = isContentView(child);</div><div class="line">    int clipLeft = 0, clipRight = getWidth();</div><div class="line"></div><div class="line">    // 记录当前画布信息</div><div class="line">    final int restoreCount = canvas.save();</div><div class="line">    if (drawingContent) &#123;</div><div class="line">	    // 只有在绘制内容视图时才进行裁切</div><div class="line">        final int childCount = getChildCount();</div><div class="line">        for (int i = 0; i &lt; childCount; i++) &#123;</div><div class="line">            final View v = getChildAt(i);</div><div class="line">            if (v == child || v.getVisibility() != VISIBLE ||</div><div class="line">                    !hasOpaqueBackground(v) || !isDrawerView(v) ||</div><div class="line">                    v.getHeight() &lt; height) &#123;</div><div class="line">                // 如果child是内容视图/视图不可见/视图背景透明/不是抽屉视图/child高度小于父布局高度</div><div class="line">                // 则不做画布裁切</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (checkDrawerViewAbsoluteGravity(v, Gravity.LEFT)) &#123;</div><div class="line">                // 盒子在左侧时裁切的left和right</div><div class="line">                final int vright = v.getRight();</div><div class="line">                if (vright &gt; clipLeft) clipLeft = vright;</div><div class="line">            &#125; else &#123;</div><div class="line">                // 盒子在右侧时裁切的的left和right</div><div class="line">                final int vleft = v.getLeft();</div><div class="line">                if (vleft &lt; clipRight) clipRight = vleft;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        // 裁切画布</div><div class="line">        canvas.clipRect(clipLeft, 0, clipRight, getHeight());</div><div class="line">    &#125;</div><div class="line">    // 绘制子视图</div><div class="line">    final boolean result = super.drawChild(canvas, child, drawingTime);</div><div class="line">    // 回复到裁切之前的画布</div><div class="line">    canvas.restoreToCount(restoreCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>drawChild方法在ViewGroup类的dispatchDraw方法内被调用，用来绘制子视图，DrawerLayout类通过重写该方法，因为在所有孩子视图绘制之前都会调用drawChild方法，但是这里只需要对内容区域视图做裁切，当绘制内容区域视图时，取得抽屉视图的位置信息，如果抽屉视图可见、背景为不透明、抽屉高度和父布局高度一致时，取得抽屉视图左、上、右、下边缘在canvas中的位置信息。接着进行裁切，将内容视图未被挡住的部分区域裁切出来，并把裁切完的canvas交由子View进行绘制，这样，内容区域只有在裁切后的区域才会绘制，其他区域不进行绘制。待子View绘制完之后，恢复Canvas到裁切之前的状态，因为一个Window下的所有View都使用的是同一个Canvas，所以需要恢复状态给其他子View使用。</p>
-<p>下面看一个系统里的“下载”APP，使用的是DrawerLayout实现：<br><img src="http://img.blog.csdn.net/20170108113853631?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="下载APP"><br>应用中虽然内容区域是红色，但是抽屉视图拉出来之后，抽屉视图的过度绘制情况却比内容区域未被挡住的部分少。</p>
-<hr>
-<p><strong>3. ImageView的background和imageDrawable重叠</strong><br>Android中，所有的view均可以设置background。ImageView除了能够设置background之外，还能设置ImageDrawable。</p>
-<p>在开发中，很多时候需要显示图片，在图片加载出来之前通常是需要显示一张默认图片的，很多时候会使用ImageView的background属性来设置默认背景图，而imageDrawable来设置需要加载的图片。这样会导致一个问题，当图片加载到页面后，默认背景图被挡住了，但是却任然需要绘制，导致过度绘制情况的发生。</p>
-<p>解决方案是把背景图和真正加载的图片都通过imageDrawable方法进行设置。</p>
-<hr>
-<p>##总结##</p>
-<ul>
-<li>Android中一个window对应一个Canvas，window下的所有视图(View/ViewGroup)使用的都是同一个canvas，视图树的父节点在调用子视图的View.draw之前，会对Canvas进行裁切，裁切的区域就是View在屏幕中所占的矩形区域，这也就是为什么超过View边界的内容会被裁切掉的原因。</li>
-<li>既然过度绘制值一个像素点被绘制多次，我们只要保证图片或者背景颜色不要叠加在一起即可。正确的方式应该是尽量减少带背景的View产生重叠区域。如果重叠，使用canvas的clipRect进行裁切。</li>
-<li>尽量减少视图的深度，来减少视图树的遍历过程。</li>
-</ul>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="https://wwangc.me/post/android-overdraw.html" target="_blank" rel="external">https://wwangc.me/post/android-overdraw.html</a></p>
-
-          
+          过度绘制：屏幕上某一像素点在一帧中被重复绘制多次，就是过度绘制。        下图中多个卡片跌在一起，但是只有第一个卡片是完全可见的。背后的卡片只有部分可见。但是android系统在绘制时会将下层的卡片进行绘制，接着再将上层的卡片进行绘制。但其实，下层卡片不可见的部分是不需要进行绘制的，只有可见部
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/android-overdraw.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -536,54 +504,22 @@
       
         
           
-            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在Android中，插件化需要解决以下四件事</p>
-<ol>
-<li>动态的加载代码</li>
-<li>动态加载资源</li>
-<li>因为Android是基于四大组件开发的，四大组件需要在安装的时候向系统注册，导致动态新增的组件无法通过系统验证，所以需要使用瞒天过海之术（HOOK）欺骗系统。</li>
-<li>需要维护一套插件安装，更新，卸载的框架。</li>
-</ol>
-<p>文章将大致介绍每个环节需要做的事情，不展开介绍每一步具体如何实现，插件化是一个庞大的工程，目前市场上已经有一些比较好的开源框架。</p>
-<h2 id="动态的加载代码"><a href="#动态的加载代码" class="headerlink" title="动态的加载代码"></a>动态的加载代码</h2><p>通过ClassLoader可以动态加载类进入内存。正常来说，插件其实也是一个APK文件，带有dex字节码信息以及资源文件。按照ClassLoader加载类的机制，我们需要自己实现一个ClassLoader，并从APK文件中读取字节码进入内存。很幸运的是，Android已经提供了用来加载APK代码的ClassLoader，DexClassLoader和PathClassLoader，两者的区别是：</p>
-<blockquote>
-<p>DexClassLoader：能够加载未安装的jar/apk/dex<br>PathClassLoader：只能加载系统中已经安装过的apk</p>
-</blockquote>
-<p>既然是插件化，当然是不想让插件APK安装到手机，但是能跑起来代码，所以需要使用DexClassLoader来加载apk文件里的代码。</p>
-<h2 id="动态加载资源"><a href="#动态加载资源" class="headerlink" title="动态加载资源"></a>动态加载资源</h2><p>首先，插件里的资源id再宿主中是找不到的，所以我们需要给插件创建一个用来获取插件资源的对象。</p>
-<p>Android中，资源的获取是通过Context中的Resources对象来获取的，Resources对象最终又依赖于AssetMananger来获取APK中的资源，AssetMananger获取资源的具体实现是在native层。</p>
-<p>按照上面的思路，加载插件的资源，只需要创建一个AssetManager，用来操作插件APK里的资源，紧接着创建一个Resource对象来提供给插件使用即可。</p>
-<h2 id="欺骗系统（HOOK）"><a href="#欺骗系统（HOOK）" class="headerlink" title="欺骗系统（HOOK）"></a>欺骗系统（HOOK）</h2><h3 id="使用代理Activity方式实现："><a href="#使用代理Activity方式实现：" class="headerlink" title="使用代理Activity方式实现："></a>使用代理Activity方式实现：</h3><p>框架：<a href="https://github.com/singwhatiwanna/dynamic-load-apk" target="_blank" rel="external">dynamic-load-apk</a></p>
-<p>该方式在宿主的清单文件中注册一个ProxyActivity，该Activity是个空的Activity，只是用来接收Activity的生命周期，在对应的生命周期方法里调用插件的Activity对应的生命周期方法。</p>
-<p>该方式的缺陷比较明显，不支持launchMode，不支持Service以及BroadCastReceiver插件化开发。</p>
-<h3 id="使用占坑实现："><a href="#使用占坑实现：" class="headerlink" title="使用占坑实现："></a>使用占坑实现：</h3><h4 id="大量Hook方式"><a href="#大量Hook方式" class="headerlink" title="大量Hook方式"></a>大量Hook方式</h4><p>框架：<a href="https://github.com/DroidPluginTeam/DroidPlugin" target="_blank" rel="external">DroidPlugin</a></p>
-<p>该方式对Application Framework层的进行了多出Hook，包括Instrumentation, ActivityThread&amp;H（一个Handler）等。</p>
-<p>大致原理是在宿主的清单文件中注册大量的占坑Activity以及Service。</p>
-<p>在启动插件里的一个Activity的时候：<br><img src="/uploads/plugins-dev/1.png" alt="欺骗AMS过程"></p>
-<p>启动插件的Activity的时候(hook了Instrumentation.excuteStartActivity())，从占坑的Activity中选择一个LaunchMode一致的Activity，替换当前Intent中的插件Activity，并把插件Activity的信息以键值对的形式存放在intent对象里，等AMS服务通过验证之后，intent对象又会传递回宿主应用中，这时候通过ActivityThread&amp;H可以拦截启动Activity的过程，把intent中的插件Activity和占坑Activity进行替换，再之后，就走的是Application framework的正常启动一个Activity流程。</p>
-<p>这个流程中，有个疑问点，Application framework启动一个Activity是通过反射创建Activity对象的，宿主并没有加载插件的Activity类，会报错。<br>这个问题，涉及到一个叫LoadedApk的对象，该对象是一个应用创建的时候，用来记录当前应用APK对应的信息的类。大致包含有ClassLoader，Application对象，ContentImpl对象等。<br>所以需要在安装插件的时候，为插件APK生成一个LoadedApk对象，并使用DexClassLoader加载插件APK代码，生成一个ClassLoader，该ClassLoader之后会用来加载插件的Activity以及Service。</p>
-<p>还有一个问题是，LoadedApk中的ContentImpl是如何生成的，该对象之后会用来给插件读取资源，他的生成，系统以及有API了，和上面的动态加载资源原理类似，在LoadedApk创建并初始化的时候，会创建一个ContextImpl对象，并通过AssetMananger来初始化其Resources对象。</p>
-<p><strong>总结</strong></p>
-<ol>
-<li>通过反射调用ActivityThread的getPackageInfoNoCheck方法来生成插件LoadedApk对象</li>
-<li>替换LoadedApk对象里的ClassLoader为加载插件代码的DexClassLoader</li>
-<li>在调用startActivity的时候，替换插件的Activity为占坑Activity。</li>
-<li>在AMS通知Application可以启动占坑Activity之后，替换占坑Activity为插件Activity，并走系统自己的启动Activity流程。</li>
-<li>系统启动流程需要提供一个ClassLoader，该ClassLoader就是LoadedApk中的，这也就是为何我们要替换LoadedApk里的ClassLoader，否则会找不到插件Activity类。</li>
-<li>插件Activity里的ContextImpl来源是LoaedApk里的，该ContextImpl对象会在LoadedApk初始化的时候创建，并通过AssetMananger对象来为插件创建一个Resources对象来给插件获取资源。</li>
-<li>该模式的关键是需要<strong>创建LoadedApk</strong>，Application Framework又提供了该API，系统创建LoadedApk的时候会自动创建<strong>资源读取对象Resources</strong>，所以宿主要做的就是替换LoadedApk里的<strong>ClassLoader</strong>，以及在启动Activity的前后做一个<strong>替换</strong>。</li>
-</ol>
-<h4 id="仅仅Hook-ClassLoader"><a href="#仅仅Hook-ClassLoader" class="headerlink" title="仅仅Hook  ClassLoader"></a>仅仅Hook  ClassLoader</h4><p>框架：<a href="https://github.com/Qihoo360/RePlugin" target="_blank" rel="external">RePlugin</a></p>
-<p>从标题上看，很牛逼啊，只需要Hook   ClassLoader，不需要hook譬如Instrumentation以及ActivityThread&amp;H等。</p>
-<p>等待后期深入源码看看。</p>
-<h2 id="搭建一个稳定的插件框架"><a href="#搭建一个稳定的插件框架" class="headerlink" title="搭建一个稳定的插件框架"></a>搭建一个稳定的插件框架</h2><p>上面讲到的插件化开发框架，大多是因为需要再插件中添加Android四大组件，所以工作量会显得较为庞大，需要维护一个插件开发系统，包括安装、卸载、升级等。所以插件化开发的难度不仅仅在于如何攻破插件中组件的问题，还需要保证稳定性。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面所讲的插件化，都是基于插件内部有Android四大组件来开发的。当然如果项目中想把部分功能剥离成为插件，但是插件中并没有四大组件。完全可以不用框架来做。</p>
-<p>例子：<br>    仅仅需要加载View代码，以及逻辑处理类的代码。并且加载View代码中用到的资源文件。<br>    则只需要创建插件的LoadedApk，还有创建一个加载插件类的ClassLoader。然后在创建View的时候传递的Context对象从LoaedApk中取出来，这样就能够正常运行插件View代码以及逻辑代码了，并不需要hook任何东西，最后需要再宿主中定义一个空的Activity作为插件View的容器。</p>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/android-plugins-dev.html" target="_blank" rel="external">http://wwangc.me/post/android-plugins-dev.html</a></p>
+          简介在Android中，插件化需要解决以下四件事
 
-          
+动态的加载代码
+动态加载资源
+因为Android是基于四大组件开发的，四大组件需要在安装的时候向系统注册，导致动态新增的组件无法通过系统验证，所以需要使用瞒天过海之术（HOOK）欺骗系统。
+需要维护一套插件安装，更新，卸载的框架。
+
+文章将大致介绍
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/android-plugins-dev.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -734,70 +670,23 @@
       
         
           
-            <h1 id="简介（目录）"><a href="#简介（目录）" class="headerlink" title="简介（目录）"></a>简介（目录）</h1><ol>
-<li>Hash算法的实现（防止碰撞）</li>
-<li>发生碰撞后的处理</li>
-<li>get与remove过程</li>
-<li>线程安全</li>
-<li>与Android的SparseArray还有ArrayMap区别</li>
-</ol>
-<h2 id="Hash算法的实现（防止碰撞）"><a href="#Hash算法的实现（防止碰撞）" class="headerlink" title="Hash算法的实现（防止碰撞）"></a>Hash算法的实现（防止碰撞）</h2><p>为了减少碰撞，需要从以下几个方面来做。</p>
-<h3 id="重写key的hashCode"><a href="#重写key的hashCode" class="headerlink" title="重写key的hashCode"></a>重写key的hashCode</h3><p>尽量保证不同的对象生成不同的hash值，所以建议重写key类的hashCode方法，因为hash值的来源就是调用对象的hashCode();方法得来的。</p>
-<p>重写技巧来至一位<a href="http://blog.csdn.net/congspark/article/details/71758815#hashcode-最佳实现方式" target="_blank" rel="external">大神博客：</a><br>1.把某个非 0 的常数值，比如 17, 或者是 31 (推荐31, 具体原因后面会讲到 )，保存在一个名为result的int类型的变量中。</p>
-<p>2.对于对象中的每个域 f ，做如下操作, 为该域计算 int 类型的哈希值 c：： </p>
-<ul>
-<li>如果该域是 boolean 类型，则计算(f ? 1 : 0) </li>
-<li>如果该域是 byte、char、short 或者 int 类型，则计算(int)f </li>
-<li>如果该域是long类型，则计算 (int)(f ^ (f&gt;&gt;&gt;32)) </li>
-<li>如果该域是float类型，则计算Float.floatToIntBits(f) </li>
-<li>如果该域是double类型，则计算Double.doubleToLongBits(f)，然后重复第三个步骤。 </li>
-<li>如果该域是一个对象引用，并且该类的 equals 方法通过递归调用 equals 方法来比较这个域，同样为这个域递归的调用 hashCode，如果这个域为null，则返回0。 </li>
-<li>如果该域是数组，则要把每一个元素当作单独的域来处理，递归的运用上述规则，如果数组域中的每个元素都很重要，那么可以使用 Arrays.hashCode 方法。</li>
-</ul>
-<p>把上面每一次计算得到的hash值c合并到result中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// result 初始化为一个非零值. </div><div class="line">result = 31 * result + c</div></pre></td></tr></table></figure>
-<h3 id="2-hashCode值转化成hash的算法"><a href="#2-hashCode值转化成hash的算法" class="headerlink" title="2. hashCode值转化成hash的算法"></a>2. hashCode值转化成hash的算法</h3><p>为什么要进行hash，是为了进一步减少碰撞率。按照jdk 1.8的规范，把高16位和低16位取异或，也就是混合高16位和低16位。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// Java 8中的散列值优化函数</div><div class="line">static final int hash(Object key) &#123;</div><div class="line">	int h;</div><div class="line">	return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</div><div class="line">	// key.hashCode()为哈希算法，为key对象hashCode方法放回的值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>看看下面这这个图：<br><img src="/uploads/java-collections-hashmap/1.jpeg" alt="抖动函数"></p>
-<h3 id="将hash值映射到数组下标中的技巧"><a href="#将hash值映射到数组下标中的技巧" class="headerlink" title="将hash值映射到数组下标中的技巧"></a>将hash值映射到数组下标中的技巧</h3><p>数组长度length = 2^n，目的是(length - 1)得到的二进制是一个低位掩码。</p>
-<p>如<br>16 = 2^4；<br>15 = 16 - 1；<br>15 = 00001111；<br>hash值与15做与操作，得到的就是hash值除以16的余数，也就是数组下标。</p>
-<p>如下图：<br><img src="/uploads/java-collections-hashmap/2.jpeg" alt="得到数组小标"></p>
-<h3 id="重写Key和Value的equals方法"><a href="#重写Key和Value的equals方法" class="headerlink" title="重写Key和Value的equals方法"></a>重写Key和Value的equals方法</h3><p>一旦发生碰撞，需要对一个连边进行操作，这时候还需要用到Key的equals方法来做比较，所以尽量重写Key的equals方法。</p>
-<h2 id="发生碰撞后的处理"><a href="#发生碰撞后的处理" class="headerlink" title="发生碰撞后的处理"></a>发生碰撞后的处理</h2><p>比如HashMap的put方法。当法相Key对应的数组下标有entry链表的时候，需要遍历链表，遍历过程中，判断计算后的hash值与entry内部存的hash值是否一样，如果一样，再利用Key的equals方法来判等，如果两个都一样，说明是key是同一个，更新entry里的value值。如果遍历完都没找到key相同的entry，那么新生成一个entry，并把它放在表头，next指针指向之前的表头。</p>
-<p>大致过程如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public V put(K key, V value) &#123;</div><div class="line">    if (key == null) &#123;</div><div class="line">        // 处理null值</div><div class="line">        return putValueForNullKey(value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 经过hash算法求得hash值</div><div class="line">    int hash = Collections.secondaryHash(key);</div><div class="line">    HashMapEntry&lt;K, V&gt;[] tab = table;</div><div class="line">    int index = hash &amp; (tab.length - 1);</div><div class="line">    for (HashMapEntry&lt;K, V&gt; e = tab[index]; e != null; e = e.next) &#123;</div><div class="line">        // 判断key是否相等，是通过计算过后的hash值，以及equals两个方法进行判断。</div><div class="line">        if (e.hash == hash &amp;&amp; key.equals(e.key)) &#123;</div><div class="line">            preModify(e);</div><div class="line">            V oldValue = e.value;</div><div class="line">            e.value = value;</div><div class="line">            return oldValue;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // No entry for (non-null) key is present; create one</div><div class="line">    modCount++;</div><div class="line">    if (size++ &gt; threshold) &#123;</div><div class="line">        tab = doubleCapacity();</div><div class="line">        index = hash &amp; (tab.length - 1);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 没有找到对应的key，插入到链表表头</div><div class="line">    addNewEntry(key, value, hash, index);</div><div class="line">    return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="get与remove过程"><a href="#get与remove过程" class="headerlink" title="get与remove过程"></a>get与remove过程</h3><p>不管是put还是get还是remove过程，都需要先算出hash值，然后找到hash值对应的数组下标。</p>
-<h4 id="get过程"><a href="#get过程" class="headerlink" title="get过程"></a>get过程</h4><p>拿到数组下标后</p>
-<ol>
-<li>如果下标没有内容，则返回空</li>
-<li>有entry，则遍历链表，遍历过程中，判等通过等号，或者是之前说的hash与equals通过，就算同一个key，返回value值<br>大致过程如下：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public V get(Object key) &#123;</div><div class="line">    if (key == null) &#123;</div><div class="line">        // 处理null的key</div><div class="line">        HashMapEntry&lt;K, V&gt; e = entryForNullKey;</div><div class="line">        return e == null ? null : e.value;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 计算hash值</div><div class="line">    int hash = Collections.secondaryHash(key);</div><div class="line">    HashMapEntry&lt;K, V&gt;[] tab = table;</div><div class="line">    for (HashMapEntry&lt;K, V&gt; e = tab[hash &amp; (tab.length - 1)];</div><div class="line">            e != null; e = e.next) &#123;</div><div class="line">        K eKey = e.key;</div><div class="line">        // 先用==号判等，如果不相等，再用hash值和equals判等。</div><div class="line">        if (eKey == key || (e.hash == hash &amp;&amp; key.equals(eKey))) &#123;</div><div class="line">            return e.value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    // 如果hash值对应的下标没内容，则返回空</div><div class="line">    return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="remove过程"><a href="#remove过程" class="headerlink" title="remove过程"></a>remove过程</h4><p>remove过程中，判断key是否一样的时候，没用使用等于号判等，找到了key对应的entry之后，需要做一个链表节点删除的操作。<br>大致过程如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public V remove(Object key) &#123;</div><div class="line">    if (key == null) &#123;</div><div class="line">        // 移除null对应的entry</div><div class="line">        return removeNullKey();</div><div class="line">    &#125;</div><div class="line">    int hash = Collections.secondaryHash(key);</div><div class="line">    HashMapEntry&lt;K, V&gt;[] tab = table;</div><div class="line">    int index = hash &amp; (tab.length - 1);</div><div class="line">    for (HashMapEntry&lt;K, V&gt; e = tab[index], prev = null;</div><div class="line">            e != null; prev = e, e = e.next) &#123;</div><div class="line">        // 使用hash值和equals判等</div><div class="line">        if (e.hash == hash &amp;&amp; key.equals(e.key)) &#123;</div><div class="line">            // 移除链表的某一个节点</div><div class="line">            if (prev == null) &#123;</div><div class="line">                tab[index] = e.next;</div><div class="line">            &#125; else &#123;</div><div class="line">                prev.next = e.next;</div><div class="line">            &#125;</div><div class="line">            modCount++;</div><div class="line">            size--;</div><div class="line">            postRemove(e);</div><div class="line">            return e.value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h3><p>HashMap是线程不安全的，所以当多个线程同时操作的时候，可能会出现问题。<br>如：一个线程写，一个线程遍历。</p>
-<p>HashMap在每一次put，remove都会修改一个叫modCount的成员变量。所以当一个线程在不断的put或者remove的时候，modCount会不断的改变。</p>
-<p>HashMap的遍历，首先会保存当前的modCount，然后在遍历到每一个entry的时候都判断一遍遍历前的modCount是否和现在的modCount一致。如果不一致，说明在遍历期间有人修改了HashMap里的内容，则报错。</p>
-<p><img src="/uploads/java-collections-hashmap/3.jpeg" alt="ConcurrentModificationException"></p>
-<p>如果是一个线程写，一个其他线程只是get的话，应该是不会有问题的。</p>
-<h3 id="与Android的SparseArray还有ArrayMap区别"><a href="#与Android的SparseArray还有ArrayMap区别" class="headerlink" title="与Android的SparseArray还有ArrayMap区别"></a>与Android的SparseArray还有ArrayMap区别</h3><p>如果你的HashMap的key是Integer类型，使用SparseArray代替。<br>如果你的HashMap的key是Long类型，使用LongSparseArray代替。<br>否则，使用ArrayMap代替。</p>
-<p>SparseArray，LongSparseArray以及ArrayMap都不是通过entry来存放Key和value的。而是通过一个数组存key，另一个数组存value来实现的。<br>每次插入新的key，都会把key数组进行排序。<br>查找过程，是通过key值进行二分查找。<br>所以在map长度太大（1000以上）的时候，不建议再使用这三个map。因为效率会下降。</p>
-<p>这三个集合的作用是节约内存，减少新对象的创建。除此之外SparseArray和LongSparseArray可以减少装箱和拆箱过程，提高效率。</p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ol>
-<li>HashMap使用数组+单项链表实现</li>
-<li>为了减少数组下标碰撞，需要写一个hash算法来计算hash值</li>
-<li>key值判等，除了get会对key使用“==”来判断，push和remove都只是用过判断hash和equals方法是否相等。</li>
-<li>存在线程安全问题</li>
-<li>在Android中存储的数据量不大的话，可以使用SparseArray还有ArrayMap代替，具体看需求</li>
-</ol>
-<hr>
-<h1 id="后期继续完善"><a href="#后期继续完善" class="headerlink" title="后期继续完善"></a>后期继续完善</h1><hr>
-<p>本文结束，感谢欣赏。</p>
-<p>参考：<br><a href="http://blog.csdn.net/congspark/article/details/71758815" target="_blank" rel="external">深入理解HashMap(1)</a><br><a href="https://www.zhihu.com/question/20733617" target="_blank" rel="external">JDK 源码中 HashMap 的 hash 方法原理是什么？</a></p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/android-java-collections-hashmap.html" target="_blank" rel="external">http://wwangc.me/post/android-java-collections-hashmap.html</a></p>
+          简介（目录）
+Hash算法的实现（防止碰撞）
+发生碰撞后的处理
+get与remove过程
+线程安全
+与Android的SparseArray还有ArrayMap区别
 
-          
+Hash算法的实现（防止碰撞）为了减少碰撞，需要从以下几个方面来做。
+重写key的hashCode尽量保证不同的对象生成不同的has
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/android-java-collections-hashmap.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -937,95 +826,19 @@
       
         
           
-            <h2 id="蚂蚁金服"><a href="#蚂蚁金服" class="headerlink" title="蚂蚁金服"></a>蚂蚁金服</h2><ol>
-<li>目前插件化实现的方案都有哪些，有什么不同的地方（说到了DL，DroidPlugin，RePlugin）</li>
-<li>ClassLoader的双亲委派实现机制</li>
-<li>热修复有了解过吗</li>
-<li>Android Launcher应用里的小插件（widget），三方应用是如何将自己的插件放在桌面上的，怎么理解这个widget。（因为之前自己做过launcher，所以问了这个问题）</li>
-<li>LinkedList和ArrayList的区别</li>
-<li>LinkedHashMap和HashMap的区别</li>
-<li>StringBuilder和StringBuffer的区别</li>
-<li>java中的volatile的作用</li>
-<li>说一下MVP，它和MVC的区别</li>
-<li>Dalvik和ART的区别（只答上了gc停止线程的时间和机器码生成时机，忘了还有gc的过程优化，大对象内存区域）</li>
-<li>Android系统基本架构，都有哪几层，每一层大概都有一些什么，了解内核的一些东西吗</li>
-<li>了解系统服务吗（AMS,WMS,zygote等等）</li>
-<li>算法：1! + 2! + 3! + 4! + … + n!</li>
-</ol>
-<h3 id="问题总结："><a href="#问题总结：" class="headerlink" title="问题总结："></a>问题总结：</h3><ol>
-<li>面试官让自我介绍的时候说太细了，应该大体介绍一下自己呆的公司以及做的产品，最后说一下自己擅长的地方，把最擅长的往前放，引到面试官问你擅长的地方。</li>
-<li>面试官问的问题比较泛的时候，试着问面试官具体想知道哪一块的知识，比如问系统服务，问问面试官是不是想知道AMS怎么和APP交互的。</li>
-</ol>
-<h2 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h2><ol>
-<li>说一说插件化的实现原理，热修复，插件和宿主是如何通信的。</li>
-<li>Android中的ClassLoader结构，Android对java的ClassLoader做了哪些修改，google为何要做这些修改。</li>
-<li>动态代理的实现原理，动态代理中动态生成的Class，除了接口方法外，另外实现的三个方法是？（equals，toString，hashCode）</li>
-<li>项目中用了什么设计模式，具体场景是什么。</li>
-<li>mvp和mvc的区别，项目中是如何应用的。</li>
-<li>APK的打包都经过哪些（从代码到apk的生成）</li>
-<li>说一下LaunchModel，SingleInstance可能在系统中存在多个实例吗？回退栈的顺序。</li>
-<li>Touch事件的分发过程，项目里面具体的应用场景，如何解决触摸事件冲突的。</li>
-<li>Android 消息队列是怎么实现的。</li>
-<li>讲解以下性能优化（CPU，内存，过渡绘制，异步加载View）</li>
-<li>算法1：用数组实现队列，要求可以从头和尾取，可以扩容（需要写出扩容方法）。</li>
-<li>算法2：背包问题</li>
-<li>算法3：不使用java api实现String转数字。（“123” -&gt;123）;</li>
-<li>给一个View对象（可能是ViewGroup类型），计算这个视图树的深度。</li>
-</ol>
-<h2 id="学霸君"><a href="#学霸君" class="headerlink" title="学霸君"></a>学霸君</h2><ol>
-<li>说一说插件化是如何实现的，项目中哪里用上了，怎么用的，宿主和插件如何通信。</li>
-<li>项目中有碰到需要兼容Android低版本的问题吗，如何做的。</li>
-<li>自定义View的流程，如果要实现一个时钟的效果，怎么实现（面试官想问canvas的API使用，旋转画布）。</li>
-<li>Touch事件的分发过程，项目里面具体的应用场景，如何解决触摸事件冲突的。</li>
-<li>性能优化是怎么做的。</li>
-<li>写过几种单利（双if，静态内部类，枚举）</li>
-<li>项目里面用了哪些设计模式，具体场景。</li>
-</ol>
-<h2 id="小米"><a href="#小米" class="headerlink" title="小米"></a>小米</h2><ol>
-<li>性能优化怎么做的（cpu，gc，过渡绘制）</li>
-<li>Looper，Message，Handler，MessageQueue</li>
-<li>属性动画，和View动画的区别</li>
-<li>自定义View都怎么做的</li>
-<li>GUI系统，讲一下（VSYNC和三缓冲，硬件加速的作用）</li>
-<li>onMeasure方法里的两个参数作用</li>
-<li>动态高斯模糊如何实现的，比如通知栏的背后有个高斯模糊，随着通知栏底下的应用改变，高斯模糊也变化。（在surfaceFlinger合成app的图形之后，进行高斯模糊）</li>
-<li>Notification里的RemoteViews是如何实现的，AppWidget是如何实现的</li>
-<li>AIDL里的方法能够重载吗，提供服务的server端需要考虑线程同步吗，为什么。</li>
-<li><p>现场出了一个自定义View的题目</p>
-<ol>
-<li>一个ViewGroup，里面的View要求是水平方向的</li>
-<li><p>ViewGroup有一个属性<strong>align</strong>，可以是left， center，right（left表示所有子View都靠左，center表示所有子View水平居中，right表示所有的子View都靠右）</p>
-</li>
-<li><p>ViewGroup有另外一个属性<strong>upright</strong>，可以是top，center，bottom（top表示所有的子View都靠上，center表示所有的子View竖直居中，bottom表示所有的子View靠下）</p>
-</li>
-<li>所有的子View宽度可以自己先算出来，<strong>如果子View的宽度总和不超过ViewGroup的宽度，需要把多余的宽度平均分给每个子View</strong>。这样的话，每个子View都有个一weight属性，这个weight表示它宽度增长的指数（和LinearLayout的weight类似）</li>
-<li><strong>如果子View的宽度总和超过ViewGroup的宽度，需要把多余的宽度平均分给每个子View去减少</strong>。这样的话，每个子View都有个一weight属性，这个weight表示它需要减少的宽度指数（和LinearLayout的weight类似）</li>
-<li>举个栗子，ViewGroup宽度19px，有三个子View，如果三个子View（a，b，c）的宽度总和为11px，这时候还剩下8，此时如果a.weight = 2; b.weight = 1;c.weight = 1;这时候，需要让a宽度变长4px，b的宽度变长2px，c的宽度变长2px。当三个子View的宽度总和超过ViewGroup的宽度的时候，计算规则同上。</li>
-<li>问题：讲一下onMeasure和onLayout方法怎么设计。</li>
-</ol>
-</li>
-<li>写一个单利（饥渴式，双if，静态内部类）</li>
-<li>Touch事件的分发流程</li>
-<li>算法1：二分查找（递归与非递归）</li>
-<li>算法2：一个有序数组a，一个数n。在数组中找到任何一组两个数之和等于n的组合。</li>
-</ol>
-<h2 id="陌陌"><a href="#陌陌" class="headerlink" title="陌陌"></a>陌陌</h2><ol>
-<li>性能优化怎么做的（耗时方法，内存泄漏，常驻内存，异步缓存视图树，视图树层级，懒加载视图，视图类型选择，大图替换（色值，.9，压缩），过渡绘制）</li>
-<li>你了解的Android源码设计模式有哪些（装饰：Context。AlertDialog：builder。差值器：策略。Binder：代理…..）</li>
-<li>Service的两种启动方式，区别是什么。</li>
-<li>Activity的启动过程</li>
-<li>ANR有几总，如何分析ANR日志。</li>
-<li>Binder的机制，和共享内存，Socket的区别（一个是效率，一个是安全性，一个是使用方便），大致讲解一个Binder的使用。</li>
-<li>插件化中的ClassLoader怎么设计的</li>
-<li>项目中重要的贡献，如何做的。</li>
-<li>知道虚拟机相关的知识吗（感觉应该从jvm讲到dalvik再讲到art，以及区别，还有内存分区，GC这些）</li>
-</ol>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/interview-2017-7.html" target="_blank" rel="external">http://wwangc.me/post/interview-2017-7.html</a></p>
-
-          
+          蚂蚁金服
+目前插件化实现的方案都有哪些，有什么不同的地方（说到了DL，DroidPlugin，RePlugin）
+ClassLoader的双亲委派实现机制
+热修复有了解过吗
+Android Launcher应用里的小插件（widget），三方应用是如何将自己的插件放在桌面上的，怎么理解这个widge
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/interview-2017-7.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1176,116 +989,17 @@
       
         
           
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>本文讲解的内容是Android4.1以后的系统机制，将从整体上分析Android图形显示系统的结构，不深入分析每一层内部的代码实现，更多的是使用流程图和结构图来让大家理解Android是如何绘制、合成图形并显示到屏幕上。</p>
-<p>本文将从三个层次进行讲解，大致如下图：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-b47f7ec351c5778d?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="大体流程"><br>可以理解为上层生产，下层消费模型。</p>
-<p>其中每一层之间的数据传递是使用Buffer（图形缓冲区）作为载体：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-9735954ae4098038?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图形数据的载体"><br>这里的缓冲区，大家可以理解为带有宽高和像素密度的内存区块。</p>
-<h1 id="1-从下层往上层理解"><a href="#1-从下层往上层理解" class="headerlink" title="1. 从下层往上层理解"></a>1. 从下层往上层理解</h1><h2 id="1-1-显示屏"><a href="#1-1-显示屏" class="headerlink" title="1.1 显示屏"></a>1.1 显示屏</h2><p>显示屏上的内容，是从硬件帧缓冲区读取的，大致读取过程为：从Buffer的起始地址开始，从上往下，从左往右扫描整个Buffer，将内容映射到显示屏上：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-a19b0517fd997922?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕与帧缓冲区关系图1"></p>
-<p>当然，屏幕上的内容需要需要不断的更新，如果在同一个Buffer进行读取和写入（合成）操作，将会导致屏幕显示多帧内容。所以硬件层除了提供一个Buffer用于屏幕显示，还提供了一个Buffer用于后台的图形合成，也就是我们常说的双缓冲：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-c1600a7aade01a4c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕与帧缓冲区关系图2"><br>上图中包含两个缓冲区：<br><strong>前缓冲区：</strong>用来显示内容到屏幕的帧缓冲区<br><strong>后缓冲区：</strong>用于后台合成下一帧图形的帧缓冲区</p>
-<p>假设前一帧显示完毕，后一帧准备好了，屏幕将会开始读取下一帧的内容，也就是开始读取上图中的后缓冲区的内容：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-cc966451e3bb203e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕与帧缓冲区关系图途2"><br>此时，前后缓冲区进行一次角色互换，之前的后缓冲区变为前缓冲区，进行图形的显示，之前的前缓冲区则变为后缓冲区，进行图形的合成。</p>
-<p>然而，理想很丰满，现实很骨感，上面假设“当前一帧显示完毕，后一帧准备好了”的情况，在现实中这两个事件并非同时完成。那么，屏幕扫描缓冲区的速度和系统合成帧的速度之间有什么关系呢，带着这个疑惑我们看看下面两个概念：<br><strong>屏幕刷新率（HZ）：</strong>代表屏幕在一秒内刷新屏幕的次数，Android手机一般为60HZ（也就是1秒刷新60帧，大约16.67毫秒刷新1帧）<br><strong>系统帧速率（FPS）：</strong>代表了系统在一秒内合成的帧数，该值的大小由系统算法和硬件决定。</p>
-<p>我们用以下两个假设来分析两者的关系：<br>① 屏幕刷新速率比系统帧速率快<br>此时，在前缓冲区内容全部映射到屏幕上之后，后缓冲区尚未准备好下一帧，屏幕将无法读取下一帧，所以只能继续显示当前一帧的图形，<strong>造成一帧显示多次，也就是卡顿。</strong><br>② 系统帧速率比屏幕刷新率快<br>此时，屏幕未完全把前缓冲区的一帧映射到屏幕，而系统已经在后缓冲区准备好了下一帧，并要求读取下一帧到屏幕，将会导致屏幕上半部分是上一帧的图形，而下半部分是下一帧的图形，<strong>造成屏幕上显示多帧，也就是屏幕撕裂。</strong></p>
-<p>上面两种情况，都会导致问题，根本原因就是两个缓冲区的操作速率不一致，解决办法就是让屏幕控制前后缓冲区的切换，让系统帧速率配合屏幕刷新率的节奏。</p>
-<p>那么屏幕是如何控制这个节奏的呢？</p>
-<p><strong>垂直同步（VSync）：</strong>当屏幕从缓冲区扫描完一帧到屏幕上之后，开始扫描下一帧之前，发出的一个同步信号，该信号用来切换前缓冲区和后缓冲区。</p>
-<p>通过上面的分析可以看出，屏幕的显示节奏是固定的，操作系统需要配合屏幕的显示，在固定的时间内准备好下一帧，以供屏幕进行显示。两者通过VSync信号来实现同步。</p>
-<p>关于屏幕这一块的知识点讲解到这，不再深入分析，接下来我们将会了解后缓冲区的图形合成者。</p>
-<h2 id="1-2-SurfaceFlinger-图形合成者"><a href="#1-2-SurfaceFlinger-图形合成者" class="headerlink" title="1.2 SurfaceFlinger-图形合成者"></a>1.2 SurfaceFlinger-图形合成者</h2><p>如果说屏幕是消费者，那么SurfaceFlinger相对屏幕来说就是生产者，其具有如下特性：</p>
-<ul>
-<li>作为上层应用的消费者，硬件层的生产者。</li>
-<li>负责图形的合成</li>
-<li>和ActivityManagerService一样，是一个系统服务</li>
-</ul>
-<p>为了更好的理解SurfaceFlinger这个服务的工作内容，以及他是如何做到一个承上启下的作用，我们通过下面的这个界面分析：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-c532922617c960c5?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-<p>界面很简单，拆开来看，包含微信、悬浮工具箱、通知栏、底部虚拟按键栏：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-013ab2d6fad6f5ce?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="界面对应的surface"><br>我们可以先这样理解上面这幅图，上层每一个界面，其实都对应SufaceFlinger里的一个Surface对象，上层将自己的内容绘制在对应的Surface内，接着，SufaceFlinger需要将所有上层对应的Surface内的图形进行合成，具体看下图：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-f10eef22db1376f0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SurfaceFlinger合成过程"><br>没错，SurfaceFlinger就是将多个Surface里的内容进行合成，最后提交到屏幕的后缓冲区，等待屏幕的下一个垂直同步信号的到来，再显示到屏幕上。</p>
-<p>我们会发现SufaceFlinger通过屏幕后缓冲区与屏幕建立联系。同时通过Surface与上层建立联系。从而起到一个承上启下的作用，是Android图形系统结构中的关键组成部分。</p>
-<p>为了继续往上层讲，我们需要了解什么是Surface：</p>
-<ul>
-<li>对应上层的一个Window（对话框、Activity、状态栏）</li>
-<li>作为上层图形绘制的<strong>画板</strong></li>
-<li>Canvas是<strong>画笔</strong>，上层通过调用Canvas的API向Surface上绘制图形</li>
-<li>Surface内部存在多个缓冲区，形成一个BufferQueue</li>
-</ul>
-<p>如果说SurfaceFinger是图形的合成者，那么图形的提供者就是上层。文章一开始就提到，图形的传递是通过Buffer作为载体，Surface是对Buffer的进一步封装，也就是说Surface内部具有多个Buffer供上层使用，如何管理这些Buffer呢？请看下面这个模型：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-7805a7093b514534?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BufferQueue"><br>Surface内部提供一个BufferQueue，与上层和SurfaceFlinger形成一个生产者消费者模型，上层对应Producer，SurfaceFlinger对应Consumer。三者通过Buffer产生联系，每个Buffer都有四种状态：</p>
-<ul>
-<li>Free：可被上层使用</li>
-<li>Dequeued：出列，正在被上层使用</li>
-<li>Queued：入列，已完成上层绘制，等待SurfaceFlinger合成</li>
-<li>Acquired：被获取，SurfaceFlinger正持有该Buffer进行合成</li>
-</ul>
-<p>Buffer的一次转移过程大致为：</p>
-<ol>
-<li>从BufferQueue转移到上层</li>
-<li>上层绘制完成再放回BufferQueue</li>
-<li>接着SurfaceFlinger再拿去合成</li>
-<li>最后又放回BufferQueue</li>
-</ol>
-<p>如此循环，形成一个Buffer被循环使用的过程。</p>
-<p>关于SurfaceFlinger以及SurfaceFlinger与上层建立联系的Surface讲解完了，接下来看看上层是如何将图形绘制到Surface的Buffer中。</p>
-<h2 id="1-3-上层绘图"><a href="#1-3-上层绘图" class="headerlink" title="1.3 上层绘图"></a>1.3 上层绘图</h2><p>上层绘图的大体流程见下图：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-30d36af0705ec3b0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上层绘图"><br>之前有说到，Surface里的Buffer作为上层的画板，Canvas作为画笔，通过调用Canvas的API完成图形的绘制，上层通过调用draw方法来调用Canvas的API，当然这里的draw方法并没有真正的将图形绘制到缓冲区，而是记录了一下绘制命令，具体需要了解DisplayList相关只是，后面会对其进行分析。</p>
-<p>从流程上看:</p>
-<ol>
-<li>测量View的宽高（Measure）</li>
-<li>设置View的宽高位置（Layout）</li>
-<li>创建显示列表，并执行绘制（Draw）</li>
-<li>生成多边形和纹理</li>
-<li>对多边形和纹理进行栅格化操作</li>
-</ol>
-<p>从执行者的角度看：</p>
-<ol>
-<li>CPU：Measure，Layout，纹理和多边形生成，发送纹理和多边形到GPU</li>
-<li>GPU：将CPU生成的纹理和多边形进行栅格化以及合成</li>
-</ol>
-<p>上面说的的纹理和多边形还有栅格化以及合成，这里不做具体的讲解，需要了解的是图形的绘制流程需要经过这些操作。从上面的分析可以看出，上层绘制图形时需要经过CPU计算，再经过GPU计算。</p>
-<p>经过上面的分析，整个Android的图形绘制大体流程已经分析完成，接下来将会分析一些流程的具体实现，分析的内容包括：</p>
-<ul>
-<li>Android 4.1 加入的VSync信号同步到上层以及三缓冲</li>
-<li>从上层往下层具体分析每一步流程</li>
-</ul>
-<h1 id="2-VSync以及三缓冲"><a href="#2-VSync以及三缓冲" class="headerlink" title="2. VSync以及三缓冲"></a>2. VSync以及三缓冲</h1><h2 id="2-1-Drawing-Without-VSync"><a href="#2-1-Drawing-Without-VSync" class="headerlink" title="2.1 Drawing Without VSync"></a>2.1 Drawing Without VSync</h2><p>从上面的讲解可以看出，整个绘制流程的节奏，分成两个生产者消费者模型，一个由屏幕和SurfaceFlinger构成，另一个由SurfaceFlinger和上层应用构成，具体流程可以用下图来描述：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-f80bf579c3ed8d3b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="drawing without vsync"><br>其中：</p>
-<ol>
-<li>CPU和GPU代表上层的绘制执行者</li>
-<li>Composite代表的是SurfaceFlinger对多个Surface的合成</li>
-<li>Background Buffer和Front Buffer分别代表的是硬件帧缓冲区中的前缓冲和后缓冲</li>
-<li>显示屏扫描完一帧之后，会发出VSync信号来切换并显示下一帧</li>
-</ol>
-<p>上面的流程中，存在一个问题，屏幕的VSync信号只是用来控制帧缓冲区的切换，并未控制上层的绘制节奏，也就是说上层的生产节奏和屏幕的显示节奏是脱离的：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-045d004f8a82369e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="drawing without vsync"><br>上图中，横轴表示时间，纵轴表示Buffer的使用者，每个长方形表示Buffer的使用，长方形的宽度代表使用时长，VSync代表垂直同步信号，两个VSync信号之间间隔16.6ms。此图描述了Android在4.1系统版本之前，上层的绘图流程在没有VSync信号的时候，出现的绘制问题。</p>
-<p>我们从时间为0开始看，当前屏幕显示第0帧，上层CPU开始计算第1帧的纹理，计算完成后，交由GPU进行栅格化。当下一个垂直同步信号到来，屏幕显示下一帧，这时候，上层CPU并未马上开始准备下一帧，而当CPU开始准备下一帧的时候已经太晚了，下一个VSync信号来临的时候，GPU未能绘制完第二帧的处理，导致屏幕再次显示上一帧，造成卡顿：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-cd0234001f55cfae?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="drawing without vsync"></p>
-<h2 id="2-2-Drawing-With-VSync"><a href="#2-2-Drawing-With-VSync" class="headerlink" title="2.2 Drawing With VSync"></a>2.2 Drawing With VSync</h2><p>因为上层不知道VSync信号已经发出，导致上层未能开始CPU的计算。google在Android 4.1系统中加入了上层接收垂直同步信号的逻辑，大致流程如下：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-fa517d56275e7866?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="draw with vsync"><br>也就是说，屏幕在显示完一帧后，发出的垂直同步除了通知帧缓冲区的切换之外，该消息还会发送到上层，通知上层开始绘制下一帧。</p>
-<p>那么，上层是如何接受这个VSync消息的呢？</p>
-<h3 id="2-2-1-Choreographer-VSync信号的上层接收者"><a href="#2-2-1-Choreographer-VSync信号的上层接收者" class="headerlink" title="2.2.1  Choreographer VSync信号的上层接收者"></a>2.2.1  Choreographer VSync信号的上层接收者</h3><p>Google为上层设计了一个Choreographer类，翻译成中文是“编舞者”，是希望通过它来控制上层的绘制（舞蹈）节奏。</p>
-<p>首先看看Choreographer的类图：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-d6207046503331b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Choreographer类图"><br>可以发现，Choreographer需要向SurfaceFlinger来注册一个VSync信号的接收器DisplayEventReceiver。同时在Choreographer的内部维护了一个CallbackQueue，用来保存上层关心VSync信号的组件，包括ViewRootImpl，TextView，ValueAnimator等。</p>
-<p>再看看上层接收VSync的时序图：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-8d4f84e3ed5e2f9d?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上层接收VSync时序图"></p>
-<p>知道了Choreographer是上层用来接收VSync的角色之后，我们需要进一步了解VSync信号是如何控制上层的绘制的：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-b5a898acda74e1da?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上层VSync与绘制相结合的时序图"><br>一般，上层需要绘制新的UI都是因为View的requestLayout或者是invalidate方法被调用触发的，我们以这个为起点，跟踪上层View的绘制流程：</p>
-<ol>
-<li>requestLayout或者invalidate触发更新视图请求</li>
-<li>更新请求传递到ViewRootImpl中，ViewRootImpl向主线程MessageQueue中加入一个阻塞器，该阻塞器将会拦截所有同步消息，也就是说此时，我们再通过Handler向主线程MessageQueue发送的所有Message都将无法被执行。</li>
-<li>ViewRootImpl向Choreographer注册下一个VSync信号</li>
-<li>Choreographer通过DisplayEventReceiver向framework层注册下一个VSync信号</li>
-<li>当底层产生下一个VSync消息时，该信号将会发送给DisplayEventReceiver，最后传递给Choreographer</li>
-<li>Choreographer收到VSync信号之后，向主线程MessageQueue发送了一个异步消息，我们在第二步提到，ViewRootImpl向MessageQueue发送了一个同步消息阻塞器。这里Choreographer发送的异步消息，是不会被阻塞器拦截的。</li>
-<li>最后，异步消息的执行者是ViewRootImpl，也就是真正开始绘制下一帧了</li>
-</ol>
-<p>至此，底层的VSync控制上层的逻辑就解释完了，此时上层绘制图形的流程与VSync信号的关系可以用下图表示：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-fb707697e784b095?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="draw with vsync"><br>时间从屏幕显示第0帧开始，CPU开始准备第1帧图形的处理，好了之后交给GPU进行处理，在上层收到下一个VSync之后，CPU立马开始第2帧的处理，上层绘图的节奏就和VSync信号保持一致了，整个绘图非常流畅。</p>
-<p>然而，理想很丰满，现实很骨感，如果CPU和GPU没能在下一个VSync信号到来之前完成下一帧的绘制工作，又会是怎么样的呢？<br><img src="http://upload-images.jianshu.io/upload_images/4307880-6b0d0122a88acaed?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="parallel processing and double buffering"><br>还是从屏幕显示第A帧开始，时间进入第一个16.6ms，CPU和GPU合成第B帧，当下一个VSync信号到来的时候，GPU未能及时完成第B帧的绘制，此时，GPU占有一个Surface里的Buffer，而同时SurfaceFlinger又持有一个Buffer用于合成显示下一帧到屏幕，这样的话，就导致Surface里的两个缓冲区都被占用了。此时SurfaceFlinger只能使用第A帧已经准备好的Buffer来合成，GPU继续在另一个缓冲区中合成第B帧，此时CPU无法开始下一帧的合成，因为缓冲区用完了。另外一个不好的事情是CPU只有在VSync信号来的时候才开始绘制下一帧，也是就是说在第二个16.6ms时间内，CPU一直处于空闲状态，未进行下一帧的计算。<br>只有等到第二个VSync信号来了之后，CPU才开始在绘制下一帧。如果CPU和GPU需要合成的图形太多，将会导致连续性的卡顿，如果CPU和GPU大部分时候都无法在16.6ms完成一帧的绘制，将会导致连续的卡顿现象。</p>
-<p>别着急，请看看Google的决绝方案。</p>
-<h2 id="2-3-parallel-processing-and-triple-buffering"><a href="#2-3-parallel-processing-and-triple-buffering" class="headerlink" title="2.3 parallel processing and triple buffering"></a>2.3 parallel processing and triple buffering</h2><p>没错，就是加入第三个Buffer，CPU和GPU还有SurfaceFlinger各占一个Buffer，并行处理图形：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-642e680b7b8e0911?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="parallel processing and triple buffering"><br>从上图可以看出，在第一个VSync到来时，尽管SurfaceFlinger占了一个Buffer，GPU又占了一个Buffer，CPU仍然可以在第三个Buffer中开始下一帧的计算，整个显示过程就开始时卡顿了一帧，之后都是流畅的。</p>
-<p>当然系统并非一直开启三个Buffer，因为Buffer是需要消耗资源的，并且，我们会发现，上图中，GPU处理好的图形，需要跨越两个VSync信号，才能显示。这样的话，给用户的影响是一个延迟的现象。</p>
-<p>为了解决该问题，我们需要再次从上层往下层了解Android绘制图形的各个细节，并进行优化。对于应用程序开发人员来说，重点还是上层的优化，对自己的应用程序的内存，UI，数据等进行优化。</p>
-<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><ul>
-<li>Android通过Buffer来保存图形信息，为了让图形显示的更加流程，在提供一一个Buffer用于显示的同时，开辟一个或者多个Buffer用于后台图形的合成。</li>
-<li>Android4.1之前，VSync信号并未传递给上层，导致生产与消费节奏不统一</li>
-<li>Android4.1之后，上层开始绘制时机都放到了VSync信号的到来时候</li>
-<li>除了在上层引入VSync机制，Anroid在4.1还加入了三缓冲，用来减少卡顿的产生</li>
-<li>每个Surface都有自己的绘制流程，需要先经过CPU处理，再经过GPU处理，之后经过SurfaceFlinger与其他Surface绘制好的图形和合成在一起，供屏幕显示</li>
-<li>VSync信号贯穿整个绘制流程，控制着整个Android图形系统的节奏</li>
-</ul>
-<p>以上内容可能有不对的地方，希望各路大神指教，下一篇文章将<strong>从上层往下层讲解Android的图形显示流程，并把上层的图形绘制流程展开讲解</strong>，敬请期待！</p>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/android-gui-1.html" target="_blank" rel="external">http://wwangc.me/post/android-gui-1.html</a></p>
+          简介本文讲解的内容是Android4.1以后的系统机制，将从整体上分析Android图形显示系统的结构，不深入分析每一层内部的代码实现，更多的是使用流程图和结构图来让大家理解Android是如何绘制、合成图形并显示到屏幕上。
+本文将从三个层次进行讲解，大致如下图：可以理解为上层生产，下层消费模型。
 
-          
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/android-gui-1.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1436,60 +1150,17 @@
       
         
           
-            <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>HTTPS就是在HTTP的基础上做了一个加密的操作，让客户端与服务端的数据传输更加的安全。所以在讲解HTTPS之前，需要对加密方式进行了解。</p>
-<h2 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h2><p>HTTPS使用到了非对称加密和对称加密，在进行握手操作时，需要用到非对称加密，握手成功之后的交互采用对称加密。</p>
-<h3 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h3><p>对称加密只有一个密钥。发送方使用该密钥进行加密，接收方使用该密钥进行解密。<br>过程大致如下：</p>
-<ol>
-<li>A给B发送数据，使用密钥加密并发送。</li>
-<li>B收到数据后，使用密钥进行解密。</li>
-<li>接着B再向A发送消息，还是使用密钥进行加密。</li>
-<li>A收到数据后，使用密钥进行解密。</li>
-</ol>
-<p>上述过程有个问题，A和B如何都知道的密钥。也就是说密钥应该是A或者B定义好的，然后发送给了另一方，另一方才知道了密钥。<br>正常来说，一个服务端对应成千上万个客户端，所以应该是服务端定义好密钥发送给各个客户端。问题就来了，第三方可以在这个过程中拦截密钥，这样就不能保证安全性了。</p>
-<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>非对称加密方式，一般有一对公钥和私钥。可以理解为一个锁(公钥)和一把钥匙(私钥)，通过公钥(锁)加密后的数据，只能通过私钥(钥匙)进行解密。</p>
-<p>信息发送方通过公钥(锁)对数据进行加密，并发送给接收方。接收方再通过私钥(钥匙)进行解密，拿到发送过来的数据。</p>
-<p>A和B进行通讯：</p>
-<ol>
-<li>A和B都需要生成一个公钥和一个私钥。</li>
-<li>A把自己的公钥给B，B把自己的公钥给A。</li>
-<li>A使用B的公钥加密消息发送给B，B用自己的私钥解密。</li>
-<li>B使用A的公钥向A发送消息，A使用自己的私钥解密。</li>
-</ol>
-<p>可以发现，在网络上传输的是公钥，而解密又是用的私钥，所以第三方即使拦截了消息，拿到了公钥，因为没有私钥也是无法解密的（当然，还是有办法从客户端那里骗来密钥，后面讲）。</p>
-<p>在上面的交互过程中，即使客户端往服务端发送的数据被三方拦截，因为没有私钥，也是无法对数据进行解密的。</p>
-<h3 id="两种加密方式的对比"><a href="#两种加密方式的对比" class="headerlink" title="两种加密方式的对比"></a>两种加密方式的对比</h3><ol>
-<li>对称加密方式采用相同的密钥，所以速度快，但由于私钥需要通过网络传递，所以安全性不高。</li>
-<li>非对称加密算法性能是非常低的，原因在于寻找大素数、大数计算、数据分割需要耗费很多的CPU周期，但是由于采用公钥和私钥两个密钥，所以安全性高。</li>
-<li>为了既提高安全性，又加快传输速度，可以将两个加密方式进行结合，采用对称加密来传输非对称加密的密钥。这样能够保证密钥的安全性，如此一来，双方只需要在第一次交流的时候采用非对称方式，以后的交流都可以可以使用对称加密</li>
-</ol>
-<h2 id="HTTPS使用的加密方式"><a href="#HTTPS使用的加密方式" class="headerlink" title="HTTPS使用的加密方式"></a>HTTPS使用的加密方式</h2><p>HTTPS综合了两种加密方式，采用非对称加密方式传输密钥，之后的数据传输使用密钥进行。</p>
-<h3 id="握手阶段"><a href="#握手阶段" class="headerlink" title="握手阶段"></a>握手阶段</h3><p><strong>先简单的用下面的四步来描述：</strong></p>
-<ol>
-<li>客户端向服务器发送请求。</li>
-<li>服务端将公钥发送给客户端。</li>
-<li>客户端生成一个密钥，并使用服务端发来的公钥进行加密，接着把加密后的数据发给服务端。</li>
-<li>服务端通过私钥进行解密，拿到客户端发来的密钥。</li>
-</ol>
-<p>大致过程如下：<br><img src="/uploads/network-https/1.jpg" alt="HTTPS握手过程1"></p>
-<p>上面会有一个问题，如果在第2步，三方拦截了服务端发送给客户端的公钥，然后制作一个假的公钥给客户端，接着再拦截客户端发送出来的加密后的密钥消息。三方再用自己的私钥来解密，就能拿到密钥了，大致过程如下：<br><img src="/uploads/network-https/2.jpg" alt="HTTPS握手过程2-拦截"></p>
-<p>为了解决此问题，引入了数字证书的概念。服务器首先生成公私钥，将公钥提供给相关机构（CA），CA将公钥放入数字证书并将数字证书颁布给服务器，此时服务器就不是简单的把公钥给客户端，而是给客户端一个数字证书，数字证书中加入了一些数字签名的机制，保证了数字证书一定是服务器给客户端的。中间人发送的伪造证书，不能够获得CA的认证，此时，客户端和服务器就知道通信被劫持了。加入了CA数字签名认证的SSL会话过程如下所示：<br><img src="/uploads/network-https/3.jpg" alt="HTTPS握手过程2-拦截"></p>
-<p>所以综合以上三点：非对称加密算法（<strong>公钥和私钥</strong>）交换对称密钥+数字证书验证身份（<strong>验证公钥是否是伪造的</strong>）+利用<strong>对称密钥</strong>加解密后续传输的数据=<strong>安全</strong><br><img src="/uploads/network-https/4.jpg" alt="HTTPS握手过程2-拦截"></p>
-<p>具体是如何进行加密，解密，验证的，且看下图：<br><img src="/uploads/network-https/5.png" alt="HTTPS握手过程2-拦截"></p>
-<p>以及：<br><img src="/uploads/network-https/6.jpg" alt="HTTPS握手过程2-拦截"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>HTTPS相对HTTP来说，多了握手（传送密钥）的过程，以及对数据的加密。</li>
-<li>HTTPS的加密，使用了非对称加密，以及对称加密两种。握手过程两种都用上了，之后的传送都是用对称加密。</li>
-<li>HTTPS实现加密的关键点之一是保证对称加密的密钥不被第三方拦截。</li>
-<li>证书是一个三方机构颁发的东西，用来给客户端做认证的。</li>
-<li>因为HTTPS的请求过程需要进行握手，非对称（握手过程），对称（握手以及后续数据发送），一方面，加密会对CPU产生负担，另一方面，握手过程需要耗费请求的时长。</li>
-</ol>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/network-https.html" target="_blank" rel="external">http://wwangc.me/post/network-https.html</a></p>
-<p><strong>参考：</strong><br><a href="http://wetest.qq.com/lab/view/110.html" target="_blank" rel="external">http://wetest.qq.com/lab/view/110.html</a><br><a href="http://blog.csdn.net/clh604/article/details/22179907" target="_blank" rel="external">http://blog.csdn.net/clh604/article/details/22179907</a></p>
-
-          
+          简述HTTPS就是在HTTP的基础上做了一个加密的操作，让客户端与服务端的数据传输更加的安全。所以在讲解HTTPS之前，需要对加密方式进行了解。
+加密方式HTTPS使用到了非对称加密和对称加密，在进行握手操作时，需要用到非对称加密，握手成功之后的交互采用对称加密。
+对称加密对称加密只有一个密钥。发送
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/network-https.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1640,78 +1311,17 @@
       
         
           
-            <p>##简述：</p>
-<blockquote>
-<p>写这篇文章的缘由是最近项目中查内存泄漏时，发现最终原因是由于异步线程调用View的的post方法导致的。<br>为何我会使用异步线程调用View的post方法，是因为项目中需要用到很多复杂的自定义布局，需要提前解析进入内存，防止在主线程解析导致卡顿，具体的实现方法是在Application启动的时候，使用异步线程解析这些布局，等需要使用的时候直接从内存中拿来用。<br>造成内存泄漏的原因，需要先分析View的post方法执行流程，也就是文章前半部分的内容</p>
-</blockquote>
-<p>##文章内容：</p>
-<ol>
-<li>View#post方法作用以及实现源码</li>
-<li>View#post与Handler#post的区别</li>
-<li>分析View#post方法导致的内存泄漏</li>
-</ol>
-<h3 id="post方法分析"><a href="#post方法分析" class="headerlink" title="post方法分析"></a>post方法分析</h3><p>看看View的post方法注释：</p>
-<blockquote>
-<p>Causes the Runnable to be added to the message queue. The runnable will be run on the user interface thread</p>
-</blockquote>
-<p>意思是将runnable加入到消息队列中，该runnable将会在用户界面线程中执行，也就是UI线程。这解释，和Handler的作用差不多，然而事实并非如此。</p>
-<p>再看看post方法的源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public boolean post(Runnable action) &#123;</div><div class="line">    final AttachInfo attachInfo = mAttachInfo;</div><div class="line">    if (attachInfo != null) &#123;</div><div class="line">	    // 如果当前View加入到了window中，直接调用UI线程的Handler发送消息</div><div class="line">        return attachInfo.mHandler.post(action);</div><div class="line">    &#125;</div><div class="line">    // Assume that post will succeed later</div><div class="line">    // View未加入到window，放入ViewRootImpl的RunQueue中</div><div class="line">    ViewRootImpl.getRunQueue().post(action);</div><div class="line">    return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>分两种情况，当View已经attach到window，直接调用UI线程的Handler发送runnable。如果View还未attach到window，将runnable放入ViewRootImpl的RunQueue中。</p>
-<p><strong>那么post到RunQueue里的runnable什么时候执行呢，又是为何当View还没attach到window的时候，需要post到RunQueue中。</strong></p>
-<h3 id="View-post与Handler-post的区别"><a href="#View-post与Handler-post的区别" class="headerlink" title="View#post与Handler#post的区别"></a>View#post与Handler#post的区别</h3><p>其实，当View已经attach到了window，两者是没有区别的，都是调用UI线程的Handler发送runnable到MessageQueue，最后都是由<strong>handler进行消息的分发处理</strong>。</p>
-<p>但是如果View尚未attach到window的话，runnable被放到了ViewRootImpl#RunQueue中，最终也会被处理，但不是通过MessageQueue。</p>
-<p>ViewRootImpl#RunQueue源码注释如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * The run queue is used to enqueue pending work from Views when no Handler is</div><div class="line"> * attached.  The work is executed during the next call to performTraversals on</div><div class="line"> * the thread.</div><div class="line"> * @hide</div><div class="line"> */</div></pre></td></tr></table></figure></p>
-<p>大概意思是当视图树尚未attach到window的时候，整个视图树是没有Handler的（其实自己可以new，这里指的handler是AttachInfo里的），这时候用RunQueue来实现延迟执行runnable任务，并且runnable最终不会被加入到MessageQueue里，也不会被Looper执行，而是等到ViewRootImpl的下一个performTraversals时候，把RunQueue里的所有runnable都拿出来并执行，接着清空RunQueue。</p>
-<p>由此可见RunQueue的作用类似于MessageQueue，只不过，这里面的所有<br>runnable最后的执行时机，是在下一个performTraversals到来的时候，MessageQueue里的消息处理的则是下一次loop到来的时候。RunQueue源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">static final class RunQueue &#123;</div><div class="line">	// 存放所有runnable，HandlerAction是对runnable的包装对象</div><div class="line">    private final ArrayList&lt;HandlerAction&gt; mActions = new ArrayList&lt;HandlerAction&gt;();</div><div class="line"></div><div class="line">	// view没有attach到window的时候，View#post最终调用到这</div><div class="line">    void post(Runnable action) &#123;</div><div class="line">        postDelayed(action, 0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">	// view没有attach到window的时候，View#postDelay最终调用到这</div><div class="line">    void postDelayed(Runnable action, long delayMillis) &#123;</div><div class="line">        HandlerAction handlerAction = new HandlerAction();</div><div class="line">        handlerAction.action = action;</div><div class="line">        handlerAction.delay = delayMillis;</div><div class="line"></div><div class="line">        synchronized (mActions) &#123;</div><div class="line">            mActions.add(handlerAction);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">	// 移除一个runnable任务，</div><div class="line">	// view没有attach到window的时候，View#removeCallbacks最终调用到这</div><div class="line">    void removeCallbacks(Runnable action) &#123;</div><div class="line">        final HandlerAction handlerAction = new HandlerAction();</div><div class="line">        handlerAction.action = action;</div><div class="line"></div><div class="line">        synchronized (mActions) &#123;</div><div class="line">            final ArrayList&lt;HandlerAction&gt; actions = mActions;</div><div class="line"></div><div class="line">            while (actions.remove(handlerAction)) &#123;</div><div class="line">                // Keep going</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">	// 取出所有的runnable并执行，接着清空RunQueue集合</div><div class="line">    void executeActions(Handler handler) &#123;</div><div class="line">        synchronized (mActions) &#123;</div><div class="line">            final ArrayList&lt;HandlerAction&gt; actions = mActions;</div><div class="line">            final int count = actions.size();</div><div class="line"></div><div class="line">            for (int i = 0; i &lt; count; i++) &#123;</div><div class="line">                final HandlerAction handlerAction = actions.get(i);</div><div class="line">                handler.postDelayed(handlerAction.action, handlerAction.delay);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            actions.clear();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">	// 对runnable的封装类，记录runnable以及delay时间</div><div class="line">    private static class HandlerAction &#123;</div><div class="line">        Runnable action;</div><div class="line">        long delay;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public boolean equals(Object o) &#123;</div><div class="line">            if (this == o) return true;</div><div class="line">            if (o == null || getClass() != o.getClass()) return false;</div><div class="line"></div><div class="line">            HandlerAction that = (HandlerAction) o;</div><div class="line">            return !(action != null ? !action.equals(that.action) : that.action != null);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public int hashCode() &#123;</div><div class="line">            int result = action != null ? action.hashCode() : 0;</div><div class="line">            result = 31 * result + (int) (delay ^ (delay &gt;&gt;&gt; 32));</div><div class="line">            return result;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>再看看RunQueue里的消息处理位置，ViewRootImpl#performTraversals：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">private void performTraversals() &#123;</div><div class="line">	</div><div class="line">	// ....</div><div class="line"></div><div class="line">    // Execute enqueued actions on every traversal in case a detached view enqueued an action</div><div class="line">    getRunQueue().executeActions(mAttachInfo.mHandler);</div><div class="line"></div><div class="line">	// ....</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>也就是说，<strong>当View没有被attach到window的时候，最后runnable的处理不是通过MessageQueue，而是ViewRootImpl自己在下一个performTraversals到来的时候执行</strong>。</p>
-<p>为了验证RunQueue里的runnable是在下一个performTraversals到来的时候执行的，做一个测试（在Activity的onCreate方法中）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">// Activity的跟布局</div><div class="line">ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();</div><div class="line">// 自己new的一个View，等待attach到window中</div><div class="line">final View view = new View(getApplicationContext()) &#123;</div><div class="line">    @Override</div><div class="line">    protected void onLayout(boolean changed, int left, int top, int right, int bottom) &#123;</div><div class="line">        super.onLayout(changed, left, top, right, bottom);</div><div class="line">        // view执行了layout</div><div class="line">        Log.e(TAG, &quot;view layout&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 在View未attach到window上之前，</div><div class="line">// 使用Handler#post发送一个runnable（最终到了MessageQueue中）</div><div class="line">mHandler.post(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        // 获取View的宽高，查看View是否已经layout</div><div class="line">        Log.e(TAG, &quot;MessageQueue runnable, view width = &quot; + view.getWidth() + &quot;  height = &quot; + view.getHeight());</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 在View未attach到window上之前，</div><div class="line">// 使用View#post发送一个runnable（最终到了ViewRootImpl#RunQueue中）</div><div class="line">view.post(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        // 获取View的宽高，查看View是否已经layout</div><div class="line">        Log.e(TAG, &quot;RunQueue runnable, view width = &quot; + view.getWidth() + &quot;  height = &quot; + view.getHeight());</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 将view添加到window中</div><div class="line">viewGroup.addView(view);</div></pre></td></tr></table></figure>
-<p>Log：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-1a6706a82e0422f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="log"></p>
-<p>打印出来的日志说明：</p>
-<ol>
-<li>使用handler#post的runnable最先执行，此时View还未layout，无法获取view的宽高。</li>
-<li>接着view的onLayout方法执行，表示view完成了位置的布置，此时可以获取宽高。</li>
-<li>view#post的runnable最后执行，也就是说view已经layout完成才执行，此时能够获取View的宽高。</li>
-</ol>
-<p>这里提一下，<strong>下一次performTraversals到来的时候，View可能attach到了window上，也可能未attach到window上</strong>，也就是代码最后不执行addView动作，使用view#post的runnable仍然无法获取View的宽高，修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// viewGroup.addView(view);</div></pre></td></tr></table></figure></p>
-<p>Log：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-f0f0d8d49dca3726?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Log2"></p>
-<p>我们经常碰到一个问题，就是new一个View之后，通过addView添加到视图树或者是在Activity的onCreate方法里调用setContentView方法。紧接着，我们想获取View的宽高，但是因为view的measure和layout都还未执行，所以是获取不到宽高的。<br><strong>view#post的一个作用是，在下一个performTraversals到来的时候，也就是view完成layout之后的第一时间获取宽高</strong>。</p>
-<h3 id="View-post方法导致的内存泄漏"><a href="#View-post方法导致的内存泄漏" class="headerlink" title="View#post方法导致的内存泄漏"></a>View#post方法导致的内存泄漏</h3><p>分析泄漏之前需要查看ViewRootImpl里的RunQueue成员变量定义以及创建过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 用ThreadLocal对象来保存ViewRootImpl的RunQueue实例</div><div class="line">static final ThreadLocal&lt;RunQueue&gt; sRunQueues = new ThreadLocal&lt;RunQueue&gt;();</div><div class="line"></div><div class="line">static RunQueue getRunQueue() &#123;</div><div class="line">    RunQueue rq = sRunQueues.get();</div><div class="line">    if (rq != null) &#123;</div><div class="line">        return rq;</div><div class="line">    &#125;</div><div class="line">    // 如果当前线程没有创建RunQueue实例，创建并保存在sRunQueues中</div><div class="line">    rq = new RunQueue();</div><div class="line">    sRunQueues.set(rq);</div><div class="line">    return rq;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>首先这里的ThreadLocal内部持有的实例是线程单利的，也就是不同的线程调用sRunQueues.get()得到的不是同一个对象。</p>
-<p>ViewRootImpl使用ThreadLocal来保存RunQueue实例，一般来说，ViewRootImpl#getRunQueue都是在UI线程使用，所以RunQueue实例只有一个。UI线程的对象引用关系：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-414f51f54ca1a134?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UIThread"><br>UIThread是应用程序启动的时候，新建的一个线程，生命周期与应用程序一致，也就是说UI线程对应的RunQueue实例是无法被回收的，但是无所谓，因为每次ViewRootImpl#performTraversals方法被调用时都会把RunQueue里的所有Runnable对象执行并清除。</p>
-<p>接着，如果是异步线程调用了View#post方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">new Thread(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        new View(getApplicationContext()).post(new Runnable() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;).start();</div></pre></td></tr></table></figure></p>
-<p>这里的的对象引用关系：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-4beb3d41c1eee3c3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MyThread"><br>这里定义的Thread只是一个临时对象，并没有被GC-Root持有，是可以被垃圾回收器回收的，那么我们post出去的Runnable只是不会被执行而已，最后还是会被回收，并不会造成内存泄漏。</p>
-<p><strong>但是如果，这个Thread是一个静态变量的话，那么我们使用异步线程post出去的Runnable也就泄漏了，如果这些runnable又引用了View对象或者是Activity对象，就会造成更大范围的泄漏。</strong></p>
-<p>虽然，Thread被定义成静态变量的情况很少出现。但是线程池被定义成静态变量却常常出现，例如我们应用程序中，经常会定义一些静态线程池对象用来实现线程的复用，比如下面的这个线程池管理类GlobalThreadPool：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public class GlobalThreadPool &#123;</div><div class="line"></div><div class="line">    private static final int SIZE = 3;</div><div class="line">    private static ScheduledExecutorService mPool;</div><div class="line"></div><div class="line">    public static ScheduledExecutorService getGlobalThreadPoolInstance() &#123;</div><div class="line">        if (mPool == null) &#123;</div><div class="line">            synchronized (GlobalThreadPool.class) &#123;</div><div class="line">                if (mPool == null) &#123;</div><div class="line">                    mPool = Executors.newScheduledThreadPool(SIZE);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return mPool;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * run a thead ,== new thread</div><div class="line">     */</div><div class="line">    public static void startRunInThread(Runnable doSthRunnable) &#123;</div><div class="line">        getGlobalThreadPoolInstance().execute(doSthRunnable);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>接着再把异步处理调用View#post的代码改改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">GlobalThreadPool.startRunInThread(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        new View(MainActivity.this).post(new Runnable() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>这样的话，对象引用关系就变成了：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-e9cd2e91ee579fd2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ThreadPool"></p>
-<p>导出的heap文件hprof查看对象引用关系：<br><img src="http://upload-images.jianshu.io/upload_images/4307880-f56ca49e7a1012f1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hprof"></p>
-<p>最后，回到文章开头简述中说的，项目中使用异步线程解析布局文件，当解析的布局文件的时候，如果布局文件中包含TextView，这时候，android系统4.4-5.2的机器，就会出现内存泄漏，具体为什么往下看。</p>
-<ol>
-<li>TextView的构造方法调用用了setText方法。</li>
-<li>setText方法又调用了notifyViewAccessibilityStateChangedIfNeeded方法。</li>
-<li>notifyViewAccessibilityStateChangedIfNeeded方法又创建了一个SendViewStateChangedAccessibilityEvent对象，紧接着又调用了SendViewStateChangedAccessibilityEvent对象的runOrPost方法。</li>
-<li>runOrPost方法最终又调用了View的post方法。</li>
-</ol>
-<p>上面这一大串流程，导致的结果就是异步线程调用了View的post方法，如果这里的线程是核心线程，也就是一直会存在于线程池中的线程，并且线程池又是静态的，就导致使用异步线程创建多个TextView相当于是往异步线程的RunQueue中加入多个Runnable，而Runable又引用了View，导致View的泄漏。</p>
-<p><strong>泄漏的对象引用关系和上面主动调用View的post方法类似。</strong></p>
-<p>至于为什么4.4-5.2的机器才会泄漏，是因为4.4-5.2的系统，View中notifyViewAccessibilityStateChangedIfNeeded方法并没有判断View是否attach到了window，直到google发布的android_6.0系统才修复该问题，该问题可以说是google的问题，因为google官方在Support_v4包中就提供了异步线程加载布局文件的框架，具体参阅：android.support.v4.view.AsyncLayoutInflater<br><img src="http://upload-images.jianshu.io/upload_images/4307880-d1988a7f52da5ef3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="官方文档"><br>传送门：<a href="https://developer.android.com/reference/android/support/v4/view/AsyncLayoutInflater.html" target="_blank" rel="external">https://developer.android.com/reference/android/support/v4/view/AsyncLayoutInflater.html</a></p>
-<p>##总结：</p>
-<ol>
-<li>当View已经attach到window，不管什么线程， 调用View#post  和  调用Handler#post效果一致</li>
-<li>当View尚未attach到window，主线程调用View#post发送的runnable将在下一次performTraversals到来时执行，而非主线程调用View#post发送的runnable将无法被执行。</li>
-<li>可以通过在主线程调用View#post发送runnable来获取下一次performTraversals时视图树中View的布局信息，如宽高。</li>
-<li>如果调用View#post方法的线程对象被GC-Root引用，则发送的runnable将会造成内存泄漏。</li>
-</ol>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/android-view-post-ml.html" target="_blank" rel="external">http://wwangc.me/post/android-view-post-ml.html</a></p>
+          ##简述：
 
-          
+写这篇文章的缘由是最近项目中查内存泄漏时，发现最终原因是由于异步线程调用View的的post方法导致的。为何我会使用异步线程调用View的post方法，是因为项目中需要用到很多复杂的自定义布局，需要提前解析进入内存，防止在主线程解析导致卡顿，具体的实现方法是在Application启动
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/android-view-post-ml.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1862,133 +1472,21 @@
       
         
           
-            <p><strong>备注：</strong></p>
-<blockquote>
-<p>本篇文章所引用的源码版本：android-sdk-21</p>
-</blockquote>
-<h2 id="简述："><a href="#简述：" class="headerlink" title="简述："></a>简述：</h2><p>简单的说，LayoutInflater就是是一个用来解析xml布局文件的类。该篇文章将对LayoutInflater类进行分析，内容包括：</p>
-<pre><code>1. LayoutInflater在哪里创建
-2. 如何获取LayoutInflater对象
-3. 视图的创建过程(xml转换成View的过程)
-4. inflate方法的两个重要参数(root、attachToRoot)分析
-</code></pre><hr>
-<h2 id="LayoutInflater的来源："><a href="#LayoutInflater的来源：" class="headerlink" title="LayoutInflater的来源："></a>LayoutInflater的来源：</h2><p>LayoutInflater和其他系统服务一样，也是在ContextImpl类中进行注册的，ContextImpl类中有一个静态代码块，应用程序用到的系统服务都在这进行注册：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">class ContextImpl extends Context &#123;</div><div class="line">	static &#123;</div><div class="line">		// ...</div><div class="line"></div><div class="line">		// 注册ActivityManager服务</div><div class="line">		registerService(ACTIVITY_SERVICE, new ServiceFetcher() &#123;</div><div class="line">                public Object createService(ContextImpl ctx) &#123;</div><div class="line">                    return new ActivityManager(ctx.getOuterContext(), ctx.mMainThread.getHandler());</div><div class="line">                &#125;&#125;);</div><div class="line">		// 注册WindowManager服务</div><div class="line">		registerService(WINDOW_SERVICE, new ServiceFetcher() &#123;</div><div class="line">                Display mDefaultDisplay;</div><div class="line">                public Object getService(ContextImpl ctx) &#123;</div><div class="line">                    Display display = ctx.mDisplay;</div><div class="line">                    if (display == null) &#123;</div><div class="line">                        if (mDefaultDisplay == null) &#123;</div><div class="line">                            DisplayManager dm = (DisplayManager)ctx.getOuterContext().</div><div class="line">                                    getSystemService(Context.DISPLAY_SERVICE);</div><div class="line">                            mDefaultDisplay = dm.getDisplay(Display.DEFAULT_DISPLAY);</div><div class="line">                        &#125;</div><div class="line">                        display = mDefaultDisplay;</div><div class="line">                    &#125;</div><div class="line">                    return new WindowManagerImpl(display);</div><div class="line">                &#125;&#125;);</div><div class="line">		</div><div class="line">		// ....</div><div class="line"></div><div class="line">		// 注册LayoutInflater服务</div><div class="line">		registerService(LAYOUT_INFLATER_SERVICE, new ServiceFetcher() &#123;</div><div class="line">                public Object createService(ContextImpl ctx) &#123;</div><div class="line">                    return PolicyManager.makeNewLayoutInflater(ctx.getOuterContext());</div><div class="line">                &#125;&#125;);</div><div class="line"></div><div class="line">		// ...其他服务的注册，不一一列举，有兴趣可以自己看源码</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// ...其他代码</div><div class="line"></div><div class="line">	// 存储所有服务的ServiceFetcher集合</div><div class="line">	private static final HashMap&lt;String, ServiceFetcher&gt; SYSTEM_SERVICE_MAP =</div><div class="line">            new HashMap&lt;String, ServiceFetcher&gt;();</div><div class="line"></div><div class="line">	private static void registerService(String serviceName, ServiceFetcher fetcher) &#123;</div><div class="line">	    if (!(fetcher instanceof StaticServiceFetcher)) &#123;</div><div class="line">	        fetcher.mContextCacheIndex = sNextPerContextServiceCacheIndex++;</div><div class="line">	    &#125;</div><div class="line">	    SYSTEM_SERVICE_MAP.put(serviceName, fetcher);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>从代码中可以发现，除了LayoutInflater的注册，还有我们常见的WindowManager、ActivityManager等的注册。所有的注册都调用了静态方法：registerService，这里所有的服务并不是在静态代码块中直接创建，而是采用饥渴式方法，只创建了对应服务的获取器ServiceFetcher对象。在真正使用特定服务的时候才创建，SYSTEM_SERVICE_MAP是一个静态的集合对象，存储了所有服务的获取器（ServiceFetcher）对象，map的键是对应服务的名称。只需要调用获取器（ServiceFetcher）的getService(Context context)方法既可以获取对应的系统服务。</p>
-<p>我们只关注LayoutInflater的获取器（ServiceFetcher）是如何实现的，其getService(Context context);方法调用了com.android.internal.policy.PolicyManager#makeNewLayoutInflater(Context context)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static LayoutInflater makeNewLayoutInflater(Context context) &#123;</div><div class="line">    return new BridgeInflater(context, RenderAction.getCurrentContext().getProjectCallback());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里提一下，上面代码是android-sdk-21版本的源码，创建了一个BridgeInflater对象，如果是android-sdk-19及以下的源码，PolicyManager#makeNewLayoutInflater方法应该是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static LayoutInflater makeNewLayoutInflater(Context context) &#123;</div><div class="line">    return sPolicy.makeNewLayoutInflater(context);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>接着调用了com.android.internal.policy.impl.Policy#makeNewLayoutInflater(Context context)方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public LayoutInflater makeNewLayoutInflater(Context context) &#123;</div><div class="line">    return new PhoneLayoutInflater(context);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>也就是说android-sdk-19及以下的版本是创建一个PhoneLayoutInflater对象。</p>
-<p>BridgeInflate和PhoneLayoutInflater都是继承自LayoutInflater，实现了解析xml布局的API，将会在后面分析xml布局文件解析过程时用上。这里不讨论两者的实现以及区别。</p>
-<hr>
-<h2 id="获取LayoutInflater对象："><a href="#获取LayoutInflater对象：" class="headerlink" title="获取LayoutInflater对象："></a>获取LayoutInflater对象：</h2><p>按照上面的逻辑，LayoutInflater不需要我们自己new，framework层已经帮我们创建好，自然也会也会提供API供开发者获取LayoutInflater对象。</p>
-<h3 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h3><p>既然LayoutInflater是在ContextImpl中注册的，Context也提供了接口来获取LayoutInflater服务，也就是Context#getSystemService(String name);方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public Object getSystemService(String name) &#123;</div><div class="line">    ServiceFetcher fetcher = SYSTEM_SERVICE_MAP.get(name);</div><div class="line">    return fetcher == null ? null : fetcher.getService(this);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>该方法从SYSTEM_SERVICE_MAP集合内取出对应服务的获取器ServiceFetcher，并调用其getService方法来获取服务，首次调用的时候，将会调用到ServiceFetcher类的createService方法来创建一个LayoutInflater对象，之后将会返回已经创建好的对象。</p>
-<p>所有的其他获取LayoutInflater对象的方式，都将调用到Context#getSystemService(String name);方法，我们继续往下看看其他方式是如何获取的。</p>
-<h3 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h3><p>通过LayoutInflater#from(context)方法来获取：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public static LayoutInflater from(Context context) &#123;</div><div class="line">    LayoutInflater LayoutInflater =</div><div class="line">            (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);</div><div class="line">    if (LayoutInflater == null) &#123;</div><div class="line">        throw new AssertionError(&quot;LayoutInflater not found.&quot;);</div><div class="line">    &#125;</div><div class="line">    return LayoutInflater;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最终该方式还是调用了方式一中说到的Context#getSystemService(String name);方法，并将LayoutInflater服务名称传递进去。</p>
-<h3 id="方式三："><a href="#方式三：" class="headerlink" title="方式三："></a>方式三：</h3><p>如果在Activity内，可以通过Activity#getLayoutInflater();方法获取LayoutInflater，该方法是Activity封装的一个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@NonNull</div><div class="line">public LayoutInflater getLayoutInflater() &#123;</div><div class="line">    return getWindow().getLayoutInflater();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Activity里的getWindow返回的是一个PhoneWindow对象，接着看PhoneWindow#getLayoutInflater();<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public LayoutInflater getLayoutInflater() &#123;</div><div class="line">    return mLayoutInflater;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>返回了一个LayoutInflater对象，其初始化是在PhoneWindow的构造方法里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public PhoneWindow(Context context) &#123;</div><div class="line">    super(context);</div><div class="line">    mLayoutInflater = LayoutInflater.from(context);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>其最终调用了方式二中的LayoutInflater#from(Context context);方法。</p>
-<hr>
-<h2 id="布局解析过程"><a href="#布局解析过程" class="headerlink" title="布局解析过程"></a>布局解析过程</h2><p>接着，分析LayoutInflater是如何将一个xml布局文件解析成一个View对象的。涉及到以下内容：</p>
-<ol>
-<li><strong>LayoutInflater#inflate(…);的四个重构方法</strong></li>
-<li><strong>LayoutInflater#inflate(…);是如何解析视图的</strong></li>
-</ol>
-<h3 id="LayoutInflater-inflate-…-的四个重构方法"><a href="#LayoutInflater-inflate-…-的四个重构方法" class="headerlink" title="LayoutInflater#inflate(…);的四个重构方法"></a>LayoutInflater#inflate(…);的四个重构方法</h3><p>通过LayoutInflater对外提供的四个inflate重构方法来入手视图解析流程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public View inflate(@LayoutRes int resource, @Nullable ViewGroup root);</div><div class="line">public View inflate(XmlPullParser parser, @Nullable ViewGroup root);</div><div class="line">public View inflate(@LayoutRes int resource, @Nullable ViewGroup root, boolean attachToRoot);</div><div class="line">public View inflate(XmlPullParser parser, @Nullable ViewGroup root, boolean attachToRoot);</div></pre></td></tr></table></figure></p>
-<p>调用关系如下：</p>
-<ol>
-<li>第一个重构方法最后调用了第三个重构方法，第三个重构方法最后调用了第四个重构方法。</li>
-<li>第二个重构方法最终调用了第四个重构方法</li>
-</ol>
-<p>第一个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public View inflate(int resource, ViewGroup root) &#123;</div><div class="line">	// 调用第三个重构方法</div><div class="line">    return inflate(resource, root, root != null);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>第二个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public View inflate(XmlPullParser parser, ViewGroup root) &#123;</div><div class="line">	// 调用第四个重构方法</div><div class="line">    return inflate(parser, root, root != null);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>第三个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public View inflate(int resource, ViewGroup root, boolean attachToRoot) &#123;</div><div class="line">    final Resources res = getContext().getResources();</div><div class="line">    if (DEBUG) &#123;</div><div class="line">        Log.d(TAG, &quot;INFLATING from resource: \&quot;&quot; + res.getResourceName(resource) + &quot;\&quot; (&quot;</div><div class="line">                + Integer.toHexString(resource) + &quot;)&quot;);</div><div class="line">    &#125;</div><div class="line">	// 通过resource资源文件获取xml解析器</div><div class="line">    final XmlResourceParser parser = res.getLayout(resource);</div><div class="line">    try &#123;</div><div class="line">	    // 调用第四个重构方法</div><div class="line">        return inflate(parser, root, attachToRoot);</div><div class="line">    &#125; finally &#123;</div><div class="line">        parser.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>第四个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public View inflate(XmlPullParser parser, ViewGroup root, boolean attachToRoot) &#123;</div><div class="line">    // 省略内容，后面分析</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>真正开始布局的解析流程的是第四个重构方法，也就是说我们只要分析第四个重构方法的流程就能知道xml布局文件是如何被解析的。</p>
-<h3 id="LayoutInflater-inflate-…-是如何解析视图的"><a href="#LayoutInflater-inflate-…-是如何解析视图的" class="headerlink" title="LayoutInflater#inflate(…);是如何解析视图的"></a>LayoutInflater#inflate(…);是如何解析视图的</h3><p>视图的解析过程可以总结成：</p>
-<ol>
-<li>使用XmlPullParser遍历xml文件内的所有节点</li>
-<li>在遍历到某一节点时，根据节点名字生成对应的View对象</li>
-<li>在生成View对象时，将AttributeSet以及Context传递给View对象的构造方法，在构造方法中，View或者其子类将通过AttributeSet获取自身的属性列表，并用来初始化View。如background等属性。</li>
-</ol>
-<p>在分析视图的解析过程之前，需要先了解什么是XmlPullParser，他是第二个和第四个重构方法的参数，XmlPullParser是一个接口，定义了一系列解析xml文件的API。</p>
-<p>java中解析xml的常用方式有DOM和SAX两种方式，pull解析是android提供的一种。</p>
-<p>这里引用一段对pull方式的描述：</p>
-<blockquote>
-<p>在android系统中，很多资源文件中,很多都是xml格式，在android系统中解析这些xml的方式，是使用pul解析器进行解析的，它和sax解析一样（个人感觉要比sax简单点），也是采用事件驱动进行解析的，当pull解析器，开始解析之后，我们可以调用它的next（）方法，来获取下一个解析事件（就是开始文档，结束文档，开始标签，结束标签），当处于某个元素时可以调用XmlPullParser的getAttributte()方法来获取属性的值，也可调用它的nextText()获取本节点的值。</p>
-</blockquote>
-<p>对xml解析方式的使用有兴趣可以参阅：<br><a href="http://www.cnblogs.com/JerryWang1991/archive/2012/02/24/2365507.html" target="_blank" rel="external">android解析XML总结（SAX、Pull、Dom三种方式）</a></p>
-<p>那么XmlPullParser对象是如何生成的。看看重构方法三：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">final XmlResourceParser parser = res.getLayout(resource);</div></pre></td></tr></table></figure></p>
-<p>res是Resource类对象，resource是资源文件id，看看Resource#getLayout(int id);方法的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public XmlResourceParser getLayout(int id) throws NotFoundException &#123;</div><div class="line">    return loadXmlResourceParser(id, &quot;layout&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Resource#loadXmlResourceParser(int id, String type);方法最终将会返回一个XmlBlock#Parser类型的对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">final class XmlBlock &#123;</div><div class="line">	// ...</div><div class="line">	final class Parser implements XmlResourceParser &#123;</div><div class="line">		// ...</div><div class="line">	&#125;</div><div class="line">	// ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>XmlResourceParser继承自XmlPullParser、AttributeSet以及AutoCloseable（一个定义了不使用时需要关闭的接口）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public interface XmlResourceParser extends XmlPullParser, AttributeSet, AutoCloseable &#123;</div><div class="line">    </div><div class="line">    public void close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>也就是说最终返回了一个XmlPullParser接口的实现类Parser，Parser类还实现了AttributeSet接口。</p>
-<p>那么大家经常在View的构造方法里见到的AttributeSet到底什么：</p>
-<blockquote>
-<p>Android引入了pull解析，其中XmlPullParser这个接口定义了操作pull解析方式对xml文件的所有操作接口，包括对节点的操作，对节点内的属性的操作，以及next等接口。而AttributeSet则是Android针对资源文件的特点定义的一个接口，该接口描述了对节点内的属性集的操作接口，除了getAttributeValue、getAttributeCount等一些和XmlPullParser接口相同的接口外。AttributeSet还定义了一些如getIdAttribute、getAttributeResourceValue、getAttributeBooleanValue这些pull解析方式之外的一些带有android特性的接口，相当于是对节点的属性集合的操作接口进行了拓展。</p>
-<p>这样看来，XmlBlock#Parser类除了实现了pull解析方式自带的接口定义外。还实现了AttributeSet接口内定义的一些具有android特性的接口。</p>
-<p>但是Parser内并未存储节点下所有的Attributes(属性)。这些属性都是存在android.content.res.TypedArray内，而如何得到TypedArray类型对象，继续往下看。</p>
-</blockquote>
-<p>回到LayoutInflater#inflate的第四个重构方法，看看是如何使用parser这个xml解析器的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line">public View inflate(XmlPullParser parser, @Nullable ViewGroup root, boolean attachToRoot) &#123;</div><div class="line">    synchronized (mConstructorArgs) &#123;</div><div class="line">        // ...</div><div class="line"></div><div class="line">		// 因为parser实现了AttributeSet接口，所以这里是强转</div><div class="line">        final AttributeSet attrs = Xml.asAttributeSet(parser);</div><div class="line">        </div><div class="line">        // result是需要return的值</div><div class="line">        View result = root;</div><div class="line"></div><div class="line">        try &#123;</div><div class="line">            // 通过一个循环，寻找根节点</div><div class="line">            int type;</div><div class="line">            while ((type = parser.next()) != XmlPullParser.START_TAG &amp;&amp;</div><div class="line">                    type != XmlPullParser.END_DOCUMENT) &#123;</div><div class="line">                // Empty</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (type != XmlPullParser.START_TAG) &#123;</div><div class="line">	            // 如果没找到根节点，报错</div><div class="line">                throw new InflateException(parser.getPositionDescription()</div><div class="line">                        + &quot;: No start tag found!&quot;);</div><div class="line">            &#125;</div><div class="line">			</div><div class="line">			// 找到了根节点，获取根节点的名称</div><div class="line">            final String name = parser.getName();</div><div class="line"></div><div class="line">            if (TAG_MERGE.equals(name)) &#123;</div><div class="line">	            // 如果根节点是merge标签</div><div class="line">                if (root == null || !attachToRoot) &#123;</div><div class="line">	                // merge标签要求传入的ViewGroup不能是空，并且attachToRoot必须为true， 否则报错</div><div class="line">                    throw new InflateException(&quot;&lt;merge /&gt; can be used only with a valid &quot;</div><div class="line">                            + &quot;ViewGroup root and attachToRoot=true&quot;);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                // 递归生成根节点下的所有子节点</div><div class="line">                rInflate(parser, root, inflaterContext, attrs, false);</div><div class="line">            &#125; else &#123;</div><div class="line">                // 根据节点的信息（名称、属性）生成根节点View对象</div><div class="line">                final View temp = createViewFromTag(root, name, inflaterContext, attrs);</div><div class="line"></div><div class="line">                // 根节点的LayoutParams属性</div><div class="line">                ViewGroup.LayoutParams params = null;</div><div class="line"></div><div class="line">                if (root != null) &#123;</div><div class="line">                	// 如果传入的ViewGroup不为空</div><div class="line"></div><div class="line">                    // 调用root的generateLayoutParams方法来生成根节点的LayoutParams属性对象</div><div class="line">                    params = root.generateLayoutParams(attrs);</div><div class="line">                    if (!attachToRoot) &#123;</div><div class="line">                        // 不需要讲根节点添加到传入的ViewGroup节点下，则将LayoutParams对象设置到根节点内</div><div class="line">                        // 否则的话在后面将会通过addView方式设置params</div><div class="line">                        temp.setLayoutParams(params);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                if (DEBUG) &#123;</div><div class="line">                    System.out.println(&quot;-----&gt; start inflating children&quot;);</div><div class="line">                    // 开始解析所有子节点</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                // 解析根节点下的子节点</div><div class="line">                rInflateChildren(parser, temp, attrs, true);</div><div class="line"></div><div class="line">                if (DEBUG) &#123;</div><div class="line">                    System.out.println(&quot;-----&gt; done inflating children&quot;);</div><div class="line">                    // 结束了所有子节点的解析</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                if (root != null &amp;&amp; attachToRoot) &#123;</div><div class="line">                	// 如果传入的ViewGroup不是空，并且需要添加根节点到其下面</div><div class="line">                    root.addView(temp, params);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                if (root == null || !attachToRoot) &#123;</div><div class="line">                	// 如果根节点为空，或者是attachToRoot为false，返回根节点</div><div class="line">                    result = temp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125; catch (XmlPullParserException e) &#123;</div><div class="line">            // ....</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            // ....</div><div class="line">        &#125; finally &#123;</div><div class="line">            // ....</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // return 结果（根节点或者是传入的ViewGroup）</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里有几个比较关键的地方，一一进行分析：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 根据节点的信息（名称、属性）生成根节点View对象</div><div class="line">final View temp = createViewFromTag(root, name, inflaterContext, attrs);</div></pre></td></tr></table></figure>
-<p>createViewFromTag方法创建了对应节点的View对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">View createViewFromTag(View parent, String name, Context context, AttributeSet attrs,</div><div class="line">        boolean ignoreThemeAttr) &#123;</div><div class="line">    if (name.equals(&quot;view&quot;)) &#123;</div><div class="line">    	// 如果节点名字为view，则取节点下面的class属性作为名字</div><div class="line">        name = attrs.getAttributeValue(null, &quot;class&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 不使用默认Theme属性的这部分逻辑跳过不讲</div><div class="line">    if (!ignoreThemeAttr) &#123;</div><div class="line">        final TypedArray ta = context.obtainStyledAttributes(attrs, ATTRS_THEME);</div><div class="line">        final int themeResId = ta.getResourceId(0, 0);</div><div class="line">        if (themeResId != 0) &#123;</div><div class="line">            context = new ContextThemeWrapper(context, themeResId);</div><div class="line">        &#125;</div><div class="line">        ta.recycle();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 几点名称为blink的时候，创建一个BlinkLayout类对象，继承自FrameLayout。</div><div class="line">    if (name.equals(TAG_1995)) &#123;</div><div class="line">        // Let&apos;s party like it&apos;s 1995!</div><div class="line">        return new BlinkLayout(context, attrs);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    try &#123;</div><div class="line">        View view;</div><div class="line"></div><div class="line">        // mFactory和mFactory2是两个工厂类，可以对视图的创建进行hook，暂时不分析</div><div class="line">        if (mFactory2 != null) &#123;</div><div class="line">            view = mFactory2.onCreateView(parent, name, context, attrs);</div><div class="line">        &#125; else if (mFactory != null) &#123;</div><div class="line">            view = mFactory.onCreateView(name, context, attrs);</div><div class="line">        &#125; else &#123;</div><div class="line">            view = null;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 和mFactory类似，暂不分析</div><div class="line">        if (view == null &amp;&amp; mPrivateFactory != null) &#123;</div><div class="line">            view = mPrivateFactory.onCreateView(parent, name, context, attrs);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 最终会走到这，</div><div class="line">        if (view == null) &#123;</div><div class="line">        	// View的构造方法参数：context</div><div class="line">            final Object lastContext = mConstructorArgs[0];</div><div class="line">            mConstructorArgs[0] = context;</div><div class="line">            try &#123;</div><div class="line">                if (-1 == name.indexOf(&apos;.&apos;)) &#123;</div><div class="line">                	// 如果节点名字不带&quot;.&quot;，说明是系统提供的View(Button/TextView等)，走系统View的创建流程，android.view包下的</div><div class="line">                    view = onCreateView(parent, name, attrs);</div><div class="line">                &#125; else &#123;</div><div class="line">                	// 否则则说明是自定义View，走自定义View的创建流程</div><div class="line">                    view = createView(name, null, attrs);</div><div class="line">                &#125;</div><div class="line">            &#125; finally &#123;</div><div class="line">                mConstructorArgs[0] = lastContext;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 返回解析出来的View</div><div class="line">        return view;</div><div class="line">    &#125; catch (InflateException e) &#123;</div><div class="line">    	// ...</div><div class="line">    &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">        // ...</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">        // ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>最终会调用LayoutInflater#createView方法来创建指定名字的View（调用onCreateView方法最后也会调用createView方法）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">public final View createView(String name, String prefix, AttributeSet attrs)</div><div class="line">            throws ClassNotFoundException, InflateException &#123;</div><div class="line"></div><div class="line">    // sConstructorMap存储了所有解析过的View的构造方法Constructor</div><div class="line">    Constructor&lt;? extends View&gt; constructor = sConstructorMap.get(name);</div><div class="line">    // 待解析的View的Class</div><div class="line">    Class&lt;? extends View&gt; clazz = null;</div><div class="line"></div><div class="line">    try &#123;</div><div class="line">        if (constructor == null) &#123;</div><div class="line">        	// 缓存中没有该类型的构造方法，也就是之前没有解析过该Class类型的View，</div><div class="line">        	// 通过反射获取Constructor对象，并缓存</div><div class="line">            clazz = mContext.getClassLoader().loadClass(</div><div class="line">                    prefix != null ? (prefix + name) : name).asSubclass(View.class);</div><div class="line">            </div><div class="line">            // Filter这个东西是用来拦截节点解析的，</div><div class="line">            // onLoadClass返回false的话，将会调用failNotAllowed，就是报错，不允许解析</div><div class="line">            if (mFilter != null &amp;&amp; clazz != null) &#123;</div><div class="line">                boolean allowed = mFilter.onLoadClass(clazz);</div><div class="line">                if (!allowed) &#123;</div><div class="line">                    failNotAllowed(name, prefix, attrs);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            // 反射获取Constructor对象，并缓存</div><div class="line">            constructor = clazz.getConstructor(mConstructorSignature);</div><div class="line">            constructor.setAccessible(true);</div><div class="line">            sConstructorMap.put(name, constructor);</div><div class="line">        &#125; else &#123;</div><div class="line">            if (mFilter != null) &#123;</div><div class="line">                // 如果有拦截器的话，需要通过缓存的拦截信息判断是否需要拦截解析，</div><div class="line">                // 如果未缓存拦截信息的话，则动态从mFilter#onLoadClass中取出拦截信息</div><div class="line">                Boolean allowedState = mFilterMap.get(name);</div><div class="line">                if (allowedState == null) &#123;</div><div class="line">                    // New class -- remember whether it is allowed</div><div class="line">                    clazz = mContext.getClassLoader().loadClass(</div><div class="line">                            prefix != null ? (prefix + name) : name).asSubclass(View.class);</div><div class="line">                    </div><div class="line">                    boolean allowed = clazz != null &amp;&amp; mFilter.onLoadClass(clazz);</div><div class="line">                    mFilterMap.put(name, allowed);</div><div class="line">                    if (!allowed) &#123;</div><div class="line">                        failNotAllowed(name, prefix, attrs);</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (allowedState.equals(Boolean.FALSE)) &#123;</div><div class="line">                    failNotAllowed(name, prefix, attrs);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Object[] args = mConstructorArgs;</div><div class="line">        // View的构造方法里第二个参数是AttributeSet，一个用来解析属性的对象</div><div class="line">        args[1] = attrs;</div><div class="line"></div><div class="line">        // View对象的真正创建</div><div class="line">        final View view = constructor.newInstance(args);</div><div class="line">        if (view instanceof ViewStub) &#123;</div><div class="line">            // 如果是ViewStub的话，需要为其设置一个copy的LayoutInflater</div><div class="line">            final ViewStub viewStub = (ViewStub) view;</div><div class="line">            viewStub.setLayoutInflater(cloneInContext((Context) args[0]));</div><div class="line">        &#125;</div><div class="line">        // 返回结果</div><div class="line">        return view;</div><div class="line"></div><div class="line">    &#125; catch (NoSuchMethodException e) &#123;</div><div class="line">	    // 这个报错比较重要</div><div class="line">        InflateException ie = new InflateException(attrs.getPositionDescription()</div><div class="line">                + &quot;: Error inflating class &quot;</div><div class="line">                + (prefix != null ? (prefix + name) : name));</div><div class="line">        ie.initCause(e);</div><div class="line">        throw ie;</div><div class="line">    &#125; catch (ClassCastException e) &#123;</div><div class="line">        // ...</div><div class="line">    &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">        // ...</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">        // ...</div><div class="line">    &#125; finally &#123;</div><div class="line">        // ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LayoutInflater是通过反射的方式创建View，并将context以及AttributeSet对象作为参数传入。</p>
-<p>也就是说如果用户自定义View的时候，没有重写带两个参数的构造方法的话，将会报错。代码将会走到上面NoSuchMethodException这个catch中。例如下面这个报错信息（注意注释部分）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">FATAL EXCEPTION: main</div><div class="line">Process: com.example.j_liuchaoqun.myapplication, PID: 26075</div><div class="line">java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.j_liuchaoqun.myapplication/com.example.j_liuchaoqun.myapplication.MainActivity&#125;: android.view.InflateException: Binary XML file line #13: Binary XML file line #13: Error inflating class com.example.j_liuchaoqun.myapplication.SlideTextView</div><div class="line">    at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2793)</div><div class="line">    at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2864)</div><div class="line">    at android.app.ActivityThread.-wrap12(ActivityThread.java)</div><div class="line">    at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1567)</div><div class="line">    at android.os.Handler.dispatchMessage(Handler.java:102)</div><div class="line">    at android.os.Looper.loop(Looper.java:156)</div><div class="line">    at android.app.ActivityThread.main(ActivityThread.java:6524)</div><div class="line">    at java.lang.reflect.Method.invoke(Native Method)</div><div class="line">    at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:941)</div><div class="line">    at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:831)</div><div class="line"> Caused by: android.view.InflateException: Binary XML file line #13: Binary XML file line #13: Error inflating class com.example.j_liuchaoqun.myapplication.SlideTextView</div><div class="line"> Caused by: android.view.InflateException: Binary XML file line #13: Error inflating class com.example.j_liuchaoqun.myapplication.SlideTextView</div><div class="line"></div><div class="line"> // 大家主要看下面这行信息，在createView(LayoutInflater.java:625)方法中反射时，提示缺少一个SlideTextView(Context context, AttributeSet set);的构造方法。</div><div class="line"> </div><div class="line"> Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</div><div class="line">    at java.lang.Class.getConstructor0(Class.java:2204)</div><div class="line">    at java.lang.Class.getConstructor(Class.java:1683)</div><div class="line">    at android.view.LayoutInflater.createView(LayoutInflater.java:625)</div><div class="line">    at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:798)</div><div class="line">    at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:738)</div><div class="line">    at android.view.LayoutInflater.rInflate(LayoutInflater.java:869)</div><div class="line">    at android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:832)</div><div class="line">    at android.view.LayoutInflater.inflate(LayoutInflater.java:518)</div><div class="line">    at android.view.LayoutInflater.inflate(LayoutInflater.java:426)</div><div class="line">    at android.view.LayoutInflater.inflate(LayoutInflater.java:377)</div><div class="line">    at android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:255)</div><div class="line">    at android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:109)</div><div class="line">    at com.example.j_liuchaoqun.myapplication.MainActivity.onCreate(MainActivity.java:11)</div><div class="line">    at android.app.Activity.performCreate(Activity.java:6910)</div><div class="line">    at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1123)</div><div class="line">    at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2746)</div><div class="line">    at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2864)</div><div class="line">    at android.app.ActivityThread.-wrap12(ActivityThread.java)</div><div class="line">    at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1567)</div><div class="line">    at android.os.Handler.dispatchMessage(Handler.java:102)</div><div class="line">    at android.os.Looper.loop(Looper.java:156)</div><div class="line">    at android.app.ActivityThread.main(ActivityThread.java:6524)</div><div class="line">    at java.lang.reflect.Method.invoke(Native Method)</div><div class="line">    at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:941)</div><div class="line">    at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:831)</div></pre></td></tr></table></figure></p>
-<p>在API21中，将会调用到View的一个四个参数的构造方法，低版本API中可能只有三个构造方法，但不管如何，最后都会调用到参数最多的那个构造方法，并在该方法中对View进行初始化，而初始化的信息，都将通过AttributeSet生成的TypedArray对象来获取。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">public View(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) &#123;</div><div class="line">    this(context);</div><div class="line"></div><div class="line">    // 解析styleable.View的所有属性</div><div class="line">    final TypedArray a = context.obtainStyledAttributes(</div><div class="line">            attrs, com.android.internal.R.styleable.View, defStyleAttr, defStyleRes);</div><div class="line"></div><div class="line">    // ...</div><div class="line"></div><div class="line">    // 遍历解析出来的所有属性，并设置为当前View对象</div><div class="line">    final int N = a.getIndexCount();</div><div class="line">    for (int i = 0; i &lt; N; i++) &#123;</div><div class="line">        int attr = a.getIndex(i);</div><div class="line">        switch (attr) &#123;</div><div class="line">            case com.android.internal.R.styleable.View_background:</div><div class="line">            	// 背景</div><div class="line">                background = a.getDrawable(attr);</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">            // ...其他case</div><div class="line">            default:</div><div class="line">            	break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里对其构造方法进行了简化，可以看到，AttributeSet是在这里使用的，通过context.obtainStyledAttributes方法将attrs.xml下定义的View这个styable属性集解析出来，android源码中的attrs.xml文件中定义了View的所有属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">&lt;!-- Attributes that can be used with &#123;@link android.view.View&#125; or</div><div class="line">     any of its subclasses.  Also see &#123;@link #ViewGroup_Layout&#125; for</div><div class="line">     attributes that are processed by the view&apos;s parent. --&gt;</div><div class="line">&lt;declare-styleable name=&quot;View&quot;&gt;</div><div class="line">    &lt;!-- Supply an identifier name for this view, to later retrieve it</div><div class="line">         with &#123;@link android.view.View#findViewById View.findViewById()&#125; or</div><div class="line">         &#123;@link android.app.Activity#findViewById Activity.findViewById()&#125;.</div><div class="line">         This must be a</div><div class="line">         resource reference; typically you set this using the</div><div class="line">         &lt;code&gt;@+&lt;/code&gt; syntax to create a new ID resources.</div><div class="line">         For example: &lt;code&gt;android:id=&quot;@+id/my_id&quot;&lt;/code&gt; which</div><div class="line">         allows you to later retrieve the view</div><div class="line">         with &lt;code&gt;findViewById(R.id.my_id)&lt;/code&gt;. --&gt;</div><div class="line">    &lt;attr name=&quot;id&quot; format=&quot;reference&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!-- Supply a tag for this view containing a String, to be retrieved</div><div class="line">         later with &#123;@link android.view.View#getTag View.getTag()&#125; or</div><div class="line">         searched for with &#123;@link android.view.View#findViewWithTag</div><div class="line">         View.findViewWithTag()&#125;.  It is generally preferable to use</div><div class="line">         IDs (through the android:id attribute) instead of tags because</div><div class="line">         they are faster and allow for compile-time type checking. --&gt;</div><div class="line">    &lt;attr name=&quot;tag&quot; format=&quot;string&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!-- The initial horizontal scroll offset, in pixels.--&gt;</div><div class="line">    &lt;attr name=&quot;scrollX&quot; format=&quot;dimension&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!-- The initial vertical scroll offset, in pixels. --&gt;</div><div class="line">    &lt;attr name=&quot;scrollY&quot; format=&quot;dimension&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!-- A drawable to use as the background.  This can be either a reference</div><div class="line">         to a full drawable resource (such as a PNG image, 9-patch,</div><div class="line">         XML state list description, etc), or a solid color such as &quot;#ff000000&quot;</div><div class="line">        (black). --&gt;</div><div class="line">    &lt;attr name=&quot;background&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!-- Sets the padding, in pixels, of all four edges.  Padding is defined as</div><div class="line">         space between the edges of the view and the view&apos;s content. A views size</div><div class="line">         will include it&apos;s padding.  If a &#123;@link android.R.attr#background&#125;</div><div class="line">         is provided, the padding will initially be set to that (0 if the</div><div class="line">         drawable does not have padding).  Explicitly setting a padding value</div><div class="line">         will override the corresponding padding found in the background. --&gt;</div><div class="line">    &lt;attr name=&quot;padding&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- Sets the padding, in pixels, of the left edge; see &#123;@link android.R.attr#padding&#125;. --&gt;</div><div class="line">    &lt;attr name=&quot;paddingLeft&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- Sets the padding, in pixels, of the top edge; see &#123;@link android.R.attr#padding&#125;. --&gt;</div><div class="line">    &lt;attr name=&quot;paddingTop&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- Sets the padding, in pixels, of the right edge; see &#123;@link android.R.attr#padding&#125;. --&gt;</div><div class="line">    &lt;attr name=&quot;paddingRight&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- Sets the padding, in pixels, of the bottom edge; see &#123;@link android.R.attr#padding&#125;. --&gt;</div><div class="line">    &lt;attr name=&quot;paddingBottom&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- Sets the padding, in pixels, of the start edge; see &#123;@link android.R.attr#padding&#125;. --&gt;</div><div class="line">    &lt;attr name=&quot;paddingStart&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- Sets the padding, in pixels, of the end edge; see &#123;@link android.R.attr#padding&#125;. --&gt;</div><div class="line">    &lt;attr name=&quot;paddingEnd&quot; format=&quot;dimension&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!-- 属性太多，不一一列举 --&gt;</div><div class="line">&lt;/declare-styleable&gt;</div></pre></td></tr></table></figure>
-<p>当然，如果你是View的子类，也有对应的属性，比如ListView：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;declare-styleable name=&quot;ListView&quot;&gt;</div><div class="line">    &lt;!-- Reference to an array resource that will populate the ListView.  For static content,</div><div class="line">         this is simpler than populating the ListView programmatically. --&gt;</div><div class="line">    &lt;attr name=&quot;entries&quot; /&gt;</div><div class="line">    &lt;!-- Drawable or color to draw between list items. --&gt;</div><div class="line">    &lt;attr name=&quot;divider&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line">    &lt;!-- Height of the divider. Will use the intrinsic height of the divider if this</div><div class="line">         is not specified. --&gt;</div><div class="line">    &lt;attr name=&quot;dividerHeight&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">    &lt;!-- When set to false, the ListView will not draw the divider after each header view.</div><div class="line">         The default value is true. --&gt;</div><div class="line">    &lt;attr name=&quot;headerDividersEnabled&quot; format=&quot;boolean&quot; /&gt;</div><div class="line">    &lt;!-- When set to false, the ListView will not draw the divider before each footer view.</div><div class="line">         The default value is true. --&gt;</div><div class="line">    &lt;attr name=&quot;footerDividersEnabled&quot; format=&quot;boolean&quot; /&gt;</div><div class="line">    &lt;!-- Drawable to draw above list content. --&gt;</div><div class="line">    &lt;attr name=&quot;overScrollHeader&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line">    &lt;!-- Drawable to draw below list content. --&gt;</div><div class="line">    &lt;attr name=&quot;overScrollFooter&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line">&lt;/declare-styleable&gt;</div></pre></td></tr></table></figure>
-<p>对应在ListView的构造方法里有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public ListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) &#123;</div><div class="line">    super(context, attrs, defStyleAttr, defStyleRes);</div><div class="line"></div><div class="line">	// ...</div><div class="line"></div><div class="line">    final TypedArray a = context.obtainStyledAttributes(</div><div class="line">            attrs, R.styleable.ListView, defStyleAttr, defStyleRes);</div><div class="line">	</div><div class="line">	// 从节点中获取Divider属性，如果有定义的话，设置到ListView中</div><div class="line">	final Drawable d = a.getDrawable(R.styleable.ListView_divider);</div><div class="line">	if (d != null) &#123;</div><div class="line">	    // Use an implicit divider height which may be explicitly</div><div class="line">	    // overridden by android:dividerHeight further down.</div><div class="line">	    setDivider(d);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// 其他ListView提供的属性...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>至此，xml中<strong>根节点</strong>的解析过程告一段落。</p>
-<p>那么LayoutInflater是如何解析xml下的其他子节点的？ 回过头来看LayoutInflater#inflate第四个重构方法里有一段代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 解析根节点下的子节点</div><div class="line">rInflateChildren(parser, temp, attrs, true);</div></pre></td></tr></table></figure>
-<p>该方法将会遍历View的所有子节点，并调用createViewFromTag对每一个节点进行解析，并把解析出来的View添加到父节点中。具体内如如何实现，大家可以看看源码。与xml的根节点解析类似。</p>
-<h3 id="inflate方法的attachToRoot（Boolean）参数"><a href="#inflate方法的attachToRoot（Boolean）参数" class="headerlink" title="inflate方法的attachToRoot（Boolean）参数"></a>inflate方法的attachToRoot（Boolean）参数</h3><p>attachToRoot是inflate接收的一个参数，它有两重作用：</p>
-<ol>
-<li><strong>表示是否需要将解析出来的xml根节点add到传入的root布局中（如果root不为空的话）。</strong></li>
-<li><strong>如果attachToRoot为true，则inflate方法将返回root对象，否则，将返回解析出来的xml根节点View对象。</strong></li>
-</ol>
-<h3 id="inflate方法的root（ViewGroup）参数"><a href="#inflate方法的root（ViewGroup）参数" class="headerlink" title="inflate方法的root（ViewGroup）参数"></a>inflate方法的root（ViewGroup）参数</h3><p><strong>如果root不为空，将会调用root的generateLayoutParams方法为xml跟布局生成LayoutParams对象。generateLayoutParams是ViewGroup中定义的方法。它的子类可以对其进行重写，以返回对应类型的LayoutParams</strong></p>
-<p>FrameLayout#generateLayoutParams(android.util.AttributeSet)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public LayoutParams generateLayoutParams(AttributeSet attrs) &#123;</div><div class="line">    return new FrameLayout.LayoutParams(getContext(), attrs);        </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>RelativeLayout#generateLayoutParams(android.util.AttributeSet):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public LayoutParams generateLayoutParams(AttributeSet attrs) &#123;</div><div class="line">    return new RelativeLayout.LayoutParams(getContext(), attrs);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以发现，如果传入的root是FrameLayout类型的话，将会生成FrameLayout.LayoutParams，如果传入的root是RelativeLayout类型的话，将会生成RelativeLayout.LayoutParams。</p>
-<p>根据这样的规律，分析下面两种情况：</p>
-<ol>
-<li>xml根节点定义了属性android:layout_centerHorizontal=”true”，而inflate方法传入的root对象为FrameLayout类型，此时android:layout_centerHorizontal将会失效，因为FrameLayout.LayoutParam对象并不支持layout_centerHorizontal属性。</li>
-<li>xml根节点定义了属性android:layout_gravity=”center”，而inflate方法传入的的root对象为RelativeLayout类型，此时android:layout_gravity也会失效，因为RelativeLayout.LayoutParams并不支持layout_gravity属性。</li>
-<li>同理还需要考虑LinearLayout.LayoutParams所支持的属性与xml根节点定义的属性是否有冲突。</li>
-</ol>
-<p><strong>如果传入的root对象为空，xml根节点的所有的以“layout_”开头的属性都将失效，因为没有root对象来为根节点生成对应的LayoutParams对象。</strong></p>
-<p>针对该特性，如果传入的root为空，将出现类似如根节点定义的宽高失效，如我定义的根节点宽度为50dp，高度也为50dp，最后显示出来的效果却是一个wrap_content的效果。为什么会出现上述原因，是因为如果根节点没有LayoutParams对象，那么在它被add到某一个ViewGroup上的时候，将会自动生成一个宽高为wrap_content的LayoutParams对象：</p>
-<p>ViewGroup#addView(android.view.View, int):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public void addView(View child, int index) &#123;</div><div class="line">    if (child == null) &#123;</div><div class="line">        throw new IllegalArgumentException(&quot;Cannot add a null child view to a ViewGroup&quot;);</div><div class="line">    &#125;</div><div class="line">    LayoutParams params = child.getLayoutParams();</div><div class="line">    if (params == null) &#123;</div><div class="line">	    // 如果LayoutParams为空的话，生成默认的</div><div class="line">        params = generateDefaultLayoutParams();</div><div class="line">        if (params == null) &#123;</div><div class="line">            throw new IllegalArgumentException(&quot;generateDefaultLayoutParams() cannot return null&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    addView(child, index, params);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>ViewGroup#generateDefaultLayoutParams：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected LayoutParams generateDefaultLayoutParams() &#123;</div><div class="line">    return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>LayoutInflater是android用来解析xml布局文件的一个类</li>
-<li>LayoutInflater内部使用Pull解析的方式，并对其进行了一定的扩展。</li>
-<li>LayoutInflater在生成View节点的时候，是通过反射的方式创建View对象，<br>反射调用的构造方法是带两个参数的那个，所以在定义View的时候必须重写带两个参数的构造方法。</li>
-<li>LayoutInflater在创建View对象的时候，会将xml节点的解析器AttributeSet传入到View的构造方法中。AttributeSet定义了用来解析xml节点属性的API。View通过AttributeSet生成TypedArray，并从中读取View节点中定义的属性。</li>
-<li>最后LayoutInflater将会通过递归的方式创建xml根节点下的所有孩子节点。</li>
-<li>LayoutInflater#inflate方法接收一个root对象以及一个Boolean类型的attachToRoot变量。这两个参数的值，直接影响了inflate方法的返回值，以及生成的xml根节点的LayoutParams和属性。</li>
-</ol>
-<hr>
-<p>本文结束，感谢欣赏。</p>
-<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
-<p><a href="http://wwangc.me/post/android-layout-inflate.html" target="_blank" rel="external">http://wwangc.me/post/android-layout-inflate.html</a></p>
+          备注：
 
-          
+本篇文章所引用的源码版本：android-sdk-21
+
+简述：简单的说，LayoutInflater就是是一个用来解析xml布局文件的类。该篇文章将对LayoutInflater类进行分析，内容包括：
+1. LayoutInflater在哪里创建
+2. 如何获取LayoutInflate
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/android-layout-inflate.html/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2159,12 +1657,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
 
 
@@ -2259,6 +1777,13 @@
   
   
 
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
   
 
   
@@ -2282,6 +1807,10 @@
 
 
 
+  
+    
+
+    
   
 
 
