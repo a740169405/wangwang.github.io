@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/uploads/avatar.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,CPU,调用栈," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介Android应用开发阶段，有时候会发现应用占用CPU特别高，本文将针对这种场景提出解决方案，排查Java线程问题以及Native线程问题。 1PS: 本文使用的Android Studio版本为3.1 查看CPU占用率的命令1adb shell top 使用参数：1234567Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ]">
+<meta name="keywords" content="Android,CPU,调用栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android查看每个线程CPU占用情况，以及工作内容分析">
+<meta property="og:url" content="http://yoursite.com/post/android-cpu-analysis.html/index.html">
+<meta property="og:site_name" content="良秋的博客">
+<meta property="og:description" content="简介Android应用开发阶段，有时候会发现应用占用CPU特别高，本文将针对这种场景提出解决方案，排查Java线程问题以及Native线程问题。 1PS: 本文使用的Android Studio版本为3.1 查看CPU占用率的命令1adb shell top 使用参数：1234567Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ]">
+<meta property="og:image" content="http://img.blog.csdn.net/20180112170908826?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img-blog.csdn.net/20180511124434385?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180511125519428?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180511125710341?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/2018052911275951?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2018-05-29T04:05:06.348Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android查看每个线程CPU占用情况，以及工作内容分析">
+<meta name="twitter:description" content="简介Android应用开发阶段，有时候会发现应用占用CPU特别高，本文将针对这种场景提出解决方案，排查Java线程问题以及Native线程问题。 1PS: 本文使用的Android Studio版本为3.1 查看CPU占用率的命令1adb shell top 使用参数：1234567Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ]">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20180112170908826?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/post/android-cpu-analysis.html/"/>
+
+
+
+
+
+  <title>Android查看每个线程CPU占用情况，以及工作内容分析 | 良秋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">良秋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小小Android程序员</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/android-cpu-analysis.html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="良秋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="良秋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android查看每个线程CPU占用情况，以及工作内容分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-04T16:08:54+08:00">
+                2018-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/CPU/" itemprop="url" rel="index">
+                    <span itemprop="name">CPU</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Android应用开发阶段，有时候会发现应用占用CPU特别高，本文将针对这种场景提出解决方案，排查Java线程问题以及Native线程问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PS: 本文使用的Android Studio版本为3.1</div></pre></td></tr></table></figure>
+<h2 id="查看CPU占用率的命令"><a href="#查看CPU占用率的命令" class="headerlink" title="查看CPU占用率的命令"></a>查看CPU占用率的命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell top</div></pre></td></tr></table></figure>
+<p>使用参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [ -t ] [ -h ]</div><div class="line">    -m num  Maximum number of processes to display. 最多显示几个进程，top会自动进行排序，比如让CPU占用率高的进程在前</div><div class="line">    -n num  Updates to show before exiting. 刷新次数</div><div class="line">    -d num  Seconds to wait between updates. 刷新间隔，可以输入小数即代表毫秒级间隔</div><div class="line">    -s col  Column to sort by (cpu,vss,rss,thr). 选择以哪一项进行排序</div><div class="line">    -t      Show threads instead of processes. 显示线程</div><div class="line">    -h      Display this help screen.</div></pre></td></tr></table></figure></p>
+<p>下面是adb shell top -m 10 -t -d 2命令打印<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">User 62%, System 27%, IOW 0%, IRQ 4%</div><div class="line">User 623 + Nice 15 + Sys 286 + Idle 57 + IOW 0 + IRQ 33 + SIRQ 8 = 1022</div><div class="line"></div><div class="line">  PID   TID USER     PR  NI CPU% S     VSS     RSS PCY Thread          Proc</div><div class="line"> 4014  9996 u0_a280  20   0  18% R 2524268K 319356K  ta Thread-61       com.xxxxxx</div><div class="line"> 4014  4369 u0_a280  20   0   7% R 2524268K 319356K  ta xxxxxxxxxxxxxxx com.xxxxxx</div><div class="line"> 4014 10067 u0_a280  12  -8   5% R 2524268K 318748K  ta xxxxxxxxxxxxxxx com.xxxxxx</div><div class="line"> 1162  1620 system   20   0   3% S 2515560K 274232K  fg Binder:1162_3   system_server</div><div class="line"> 1162  2274 system   20   0   3% S 2515560K 274232K  fg Binder:1162_8   system_server</div><div class="line"> 4014  4136 u0_a280  10 -10   2% S 2524268K 319356K  ta RenderThread    com.xxxxxx</div><div class="line"> 9865  9865 shell    20   0   2% R   9108K   3112K  fg top             top</div><div class="line"> 4014  4064 u0_a280  21   1   2% S 2524268K 319356K  ta xxxxxxxxxxxxxxx com.xxxxxx</div><div class="line"> 4014  4014 u0_a280  16  -4   2% S 2523236K 319092K  ta xxxxxxxxxxxxxxx com.xxxxxx</div><div class="line"> 1162  2384 system   20   0   2% S 2515560K 274232K  fg Binder:1162_A   system_server</div></pre></td></tr></table></figure></p>
+<p>各列含义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">PID：略</div><div class="line">PR：在android N之前代表运行在哪个核上，在android N上代表优先级，当然可能设备厂商会进行自定义</div><div class="line">CPU%：略</div><div class="line">S：运行状态</div><div class="line">#THR：线程数</div><div class="line">VSS：Virtual Set Size  虚拟耗用内存（包含共享库占用的内存）</div><div class="line">RSS：Resident Set Size 实际使用物理内存（包含共享库占用的内存）</div><div class="line">PCY：调度策略优先级，SP_BACKGROUND/SP_FOREGROUND</div><div class="line">UID：进程所有者的用户id</div><div class="line">Thread：线程名称</div><div class="line">Name：进程名</div></pre></td></tr></table></figure></p>
+<p>可以看出，CPU占用最高的是前两个，其中com.xxxxxx是我自己的应用包名。从Thread那一列可以看出Thread的名称。</p>
+<p><code>PS：android 8.0以上的系统，TOP命令有所改变，但是大同小异，用adb shell top -H就行，具体可以查看帮助文档</code></p>
+<h2 id="查看线程工作"><a href="#查看线程工作" class="headerlink" title="查看线程工作"></a>查看线程工作</h2><p>知道了具体哪个线程占用CPU高之后，再使用Android Studio的android profiler开启method record。导出结果后查看线程方法调用即可。<br><img src="http://img.blog.csdn.net/20180112170908826?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Android Profiler"></p>
+<h3 id="android-profiler无法导出"><a href="#android-profiler无法导出" class="headerlink" title="android profiler无法导出"></a>android profiler无法导出</h3><p>有时候，你发现一个线程CPU占用很高，但是，通过android profiler追踪调用栈的时候，显示下面这个结果：<br><code>No data available for the selected thread.</code><br><img src="https://img-blog.csdn.net/20180511124434385?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="无法导出调用栈"><br>此时，可以通过打断点debug调试，导出所有线程的调用栈，比如在主线程的一个按钮点击事件里面，打个断点，当程序跑到断点处时，调出<code>Debug</code>面板，点击左侧的<code>Get thread dump</code>按钮。<br><img src="https://img-blog.csdn.net/20180511125519428?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Get thread dump"><br>点击之后，会出现所有现成的调用栈列表，找到消耗CPU高的线程，在右侧查看其调用栈<br><img src="https://img-blog.csdn.net/20180511125710341?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="所有线程调用栈"></p>
+<p>如果出现上图的情况，调用栈并没有你的项目代码的时候，可以看看调用栈调用的对象有哪些，比如截图中有<code>TimerThread</code>类，则此时，可以把java堆内存导出来，然后找<code>TimerTread</code>对象，并查看其引用，看看能不能找到项目中的类对象对其的引用。</p>
+<h3 id="Native线程问题"><a href="#Native线程问题" class="headerlink" title="Native线程问题"></a>Native线程问题</h3><p>如果，在profiler里能看到某一个线程CPU占用非常高，而通过上面这些方法仍然无法定位到问题，那么，可以确定，这个线程是Native层创建的，此时应该排查各个so是否有线程问题。</p>
+<p><code>如何查看到native线程的问题，需要Android系统在8.0及以上，Android Studio 版本在3.1及以上。</code><br>在8.0手机上复现线程问题之后，使用Android Studio的CPU Profiler，查看native线程调用栈。<br><img src="https://img-blog.csdn.net/2018052911275951?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDAxNjk0MDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Native线程调用栈导出"></p>
+<h3 id="关于CPU-Profiler使用"><a href="#关于CPU-Profiler使用" class="headerlink" title="关于CPU Profiler使用"></a>关于CPU Profiler使用</h3><p>大家参考Google爸爸的文档：<a href="https://developer.android.com/studio/profile/cpu-profiler" target="_blank" rel="external">https://developer.android.com/studio/profile/cpu-profiler</a></p>
+<p>总结：<br>整体流程比较清晰</p>
+<ol>
+<li>知道哪个线程消耗的CPU高（adb shell top命令）</li>
+<li>尝试使用android profiler来获取线程调用栈</li>
+<li>第2步如果不行，则采用断点调试打印所有线程调用栈的方式获取调用栈</li>
+<li>第3步如果看不出东西，则把java堆内存导出来，查看第3步中的类对象的引用关系，最后定位到自己项目里的类对象中</li>
+<li>Native层的线程泄露，通过Java堆栈，或者Java虚拟机导出线程信息的方式是定位不到到问题的</li>
+</ol>
+<p>参考：<a href="http://blog.csdn.net/nonmarking/article/details/77924477" title="花式读取Android CPU使用率" target="_blank" rel="external">花式读取Android CPU使用率</a></p>
+<hr>
+<p>本文结束，感谢欣赏。</p>
+<p><strong>欢迎转载，请注明本文的链接地址：</strong></p>
+<p><a href="http://wwangc.me/post/android-cpu-analysis.html" target="_blank" rel="external">http://wwangc.me/post/android-cpu-analysis.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/CPU/" rel="tag"># CPU</a>
+          
+            <a href="/tags/调用栈/" rel="tag"># 调用栈</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/android-gui-1.html/" rel="next" title="Android图形显示系统（一）">
+                <i class="fa fa-chevron-left"></i> Android图形显示系统（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/interview-2017-7.html/" rel="prev" title="2017年中旬面试总结">
+                2017年中旬面试总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="良秋" />
+            
+              <p class="site-author-name" itemprop="name">良秋</p>
+              <p class="site-description motion-element" itemprop="description">热衷Android技术，Android图形显示系统与性能优化。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangwangchen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看CPU占用率的命令"><span class="nav-number">2.</span> <span class="nav-text">查看CPU占用率的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看线程工作"><span class="nav-number">3.</span> <span class="nav-text">查看线程工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#android-profiler无法导出"><span class="nav-number">3.1.</span> <span class="nav-text">android profiler无法导出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native线程问题"><span class="nav-number">3.2.</span> <span class="nav-text">Native线程问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于CPU-Profiler使用"><span class="nav-number">3.3.</span> <span class="nav-text">关于CPU Profiler使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">良秋</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2137612"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
